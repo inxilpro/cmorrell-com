@@ -18,6 +18,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        
+      - name: Set up git identity
+        run: git config --global user.email "inxilpro@users.noreply.github.com" && git config --global user.name "Github Actions"
 
       - name: Build site for deploy
         run: yarn run deploy
