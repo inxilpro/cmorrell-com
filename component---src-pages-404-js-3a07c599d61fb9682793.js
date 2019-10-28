@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{w2l6:function(e,n,t){"use strict";t.r(n);var l=t("q1tI"),a=t.n(l),r=t("Bl7J"),o=t("vrFN");n.default=function(){return a.a.createElement(r.a,null,a.a.createElement(o.a,{title:"404: Not found"}),a.a.createElement("h1",null,"Hello darkness my old friend…"))}}}]);
+//# sourceMappingURL=component---src-pages-404-js-3a07c599d61fb9682793.js.map
