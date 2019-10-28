@@ -58,6 +58,7 @@ typings/
 .cache/
 public
 tailwind.css
+deploy/
 
 # Mac files
 .DS_Store

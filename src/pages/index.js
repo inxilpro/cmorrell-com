@@ -58,7 +58,7 @@ const IndexPage = () => (
 			   rel="noopener"
 			   title="Chris Morrell on Twitter"
 			   children={ <Twitter className="h-8 lg:h-12 w-8 lg:w-12 fill-current" /> } />
-			<a className="font-slant text-xl lg:text-3xl leading-none opacity-75 hover:opacity-100" href="https://github.com/inxilpro/" target="_blank" rel="noopener">
+			<a className="font-slant text-xl lg:text-3xl leading-none opacity-75 hover:opacity-100" href="https://twitter.com/inxilpro" target="_blank" rel="noopener">
 				Follow me on Twitter
 			</a>
 		</div>
