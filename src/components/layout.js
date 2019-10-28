@@ -5,48 +5,37 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
 
-import Header from "./header"
-import "./layout.css"
+import "../app.css";
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+import Header from "./header";
+
+export default function Layout({ children }) {
+	const data = useStaticQuery(graphql`
+        query SiteTitleQuery {
+            site {
+                siteMetadata {
+                    title
+                }
+            }
         }
-      }
-    }
-  `)
-
-  return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout
+	`);
+	
+	return (
+		<div className="flex flex-col min-h-screen">
+			<Header siteTitle={ data.site.siteMetadata.title } />
+			<main className="flex-1">
+				<div className="container mx-auto p-4">
+					{ children }
+				</div>
+			</main>
+			<footer className="bg-gray-100">
+				<div className="container mx-auto p-4 py-8 pb-12 text-sm text-gray-700">
+					&copy; { new Date().getFullYear() } Chris Morrell
+				</div>
+			</footer>
+		</div>
+	);
+};

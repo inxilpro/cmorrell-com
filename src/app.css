@@ -1,0 +1,22 @@
+@font-face {
+	font-family: "House Slant";
+	src: url('./fonts/HouseSlant.eot');
+	src: url("./fonts/HouseSlant.eot?#iefix") format("embedded-opentype"), url("./fonts/HouseSlant.woff") format("woff");
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+
+@tailwind base;
+
+body {
+	min-height: 100vh;
+}
+
+.font-slant {
+	font-family: "House Slant", sans-serif;
+}
+
+@tailwind components;
+
+@tailwind utilities;
