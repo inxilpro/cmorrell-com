@@ -12,7 +12,7 @@ module.exports = {
 			options: {
 				token: process.env.GITHUB_TOKEN,
 				graphQLQuery: `query { 
-				  viewer { 
+				  user(login:"inxilpro") {  
 				    starredRepositories (first: 50, orderBy: { field:STARRED_AT, direction:DESC }) {
 				      nodes {
 				        id,
