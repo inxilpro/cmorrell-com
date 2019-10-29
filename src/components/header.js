@@ -16,13 +16,13 @@ export default function Header({ siteTitle }) {
 					<a className="mx-1 no-underline opacity-75 hover:opacity-100"
 					   href="https://twitter.com/inxilpro"
 					   target="_blank"
-					   rel="noopener"
+					   rel="noopener noreferrer"
 					   title="Chris Morrell on Twitter"
 					   children={ <Twitter className="h-6 w-6 fill-current" /> } />
 					<a className="mx-1 no-underline opacity-75 hover:opacity-100"
 					   href="https://github.com/inxilpro/"
 					   target="_blank"
-					   rel="noopener"
+					   rel="noopener noreferrer"
 					   title="Chris Morrell on Github"
 					   children={ <Github className="h-6 w-6 fill-current" /> } />
 				</div>

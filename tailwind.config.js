@@ -6,6 +6,11 @@ module.exports = {
 			'lg': '960px',
 		},
 	},
-	variants: {},
-	plugins: []
+	variants: {
+		textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+		textDecoration: ['responsive', 'hover', 'focus', 'group-hover'],
+	},
+	plugins: [
+		require('glhd-tailwindcss-transitions')(),
+	],
 };

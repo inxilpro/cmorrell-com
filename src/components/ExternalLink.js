@@ -13,7 +13,7 @@ const defaultClassName = `text-gray-800 font-bold hover:underline`;
 export default function ExternalLink({ children, to, className = defaultClassName }) {
 	return <Link
 		target="_blank"
-		rel="noopener"
+		rel="noopener noreferrer"
 		to={ to }
 		className={ className }
 		children={ children }

@@ -1,3 +1,7 @@
+require(`dotenv`).config({
+	path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
 	siteMetadata: {
 		title: `Chris Morrell`,
@@ -5,6 +9,27 @@ module.exports = {
 		author: `@inxilpro`,
 	},
 	plugins: [
+		{
+			resolve: `gatsby-source-github-api`,
+			options: {
+				token: process.env.GITHUB_READ_TOKEN,
+				graphQLQuery: `query { 
+				  viewer { 
+				    starredRepositories (first: 50, orderBy: { field:STARRED_AT, direction:DESC }) {
+				      nodes {
+				        id,
+				        url,
+				        name,
+				        owner {
+				          login,
+				        },
+				        shortDescriptionHTML
+				      }
+				    }
+				  }
+				}`,
+			}
+		},
 		`gatsby-plugin-react-helmet`,
 		{
 			resolve: `gatsby-plugin-postcss`,
