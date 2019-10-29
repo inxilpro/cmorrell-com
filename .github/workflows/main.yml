@@ -1,6 +1,8 @@
 name: Deploy Gatsby app to Github Pages
 
 on:
+  schedule:
+    - cron:  '0 0 * * *'
   push:
     branches:
       - master
