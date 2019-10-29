@@ -12,19 +12,23 @@ jobs:
     name: Build and Deploy to Github Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout master branch
+        uses: actions/checkout@master
         
-      - uses: actions/setup-node@master
+      - name: Setup Node.js 10.x  
+        uses: actions/setup-node@master
         with:
           node-version: '10.x'
           
       - name: Install dependencies
         run: yarn install
 
-      - name: Build site for deploy
+      - name: Build site w/ Gatsby
         run: yarn run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy github pages
+      - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v2.5.1
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
