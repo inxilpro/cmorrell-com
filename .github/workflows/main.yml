@@ -9,20 +9,12 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: node:10-alpine
     steps:
       - uses: actions/checkout@master
 
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-
       - name: Install dependencies
         run: yarn install
-        
-      - name: Set up git identity
-        run: git config --global user.email "inxilpro@users.noreply.github.com" && git config --global user.name "Github Actions"
 
       - name: Build site for deploy
         run: yarn run build

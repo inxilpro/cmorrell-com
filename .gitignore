@@ -52,7 +52,7 @@ typings/
 *.tgz
 
 # dotenv environment variable files
-.env*
+.env
 
 # gatsby files
 .cache/
@@ -74,6 +74,4 @@ yarn-error.log
 .idea/
 
 # Env
-.env
-.env.development
-.env.production
+.env*

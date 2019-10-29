@@ -1,6 +1,4 @@
-require(`dotenv`).config({
-	path: `.env.${process.env.NODE_ENV}`,
-});
+require(`dotenv`).config();
 
 module.exports = {
 	siteMetadata: {
@@ -12,7 +10,7 @@ module.exports = {
 		{
 			resolve: `gatsby-source-github-api`,
 			options: {
-				token: process.env.GITHUB_READ_TOKEN,
+				token: process.env.GITHUB_TOKEN,
 				graphQLQuery: `query { 
 				  viewer { 
 				    starredRepositories (first: 50, orderBy: { field:STARRED_AT, direction:DESC }) {
