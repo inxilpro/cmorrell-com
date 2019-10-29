@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/inxilpro
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://cmorrell.com
+  * I am inxilpro (https://keybase.io/inxilpro) on keybase.
+  * I have a public key ASC3zHO6N5SDKcntHyr_bilwuYpNrCAn8C1WdS5JFVAciwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01017d478c05ebc330a9c20bdf8e51ef04980ef45231a060f5041b60702b9f3e022c0a",
+      "host": "keybase.io",
+      "kid": "0120b7cc73ba37948329c9ed1f2aff6e2970b98a4dac2027f02d56752e4915501c8b0a",
+      "uid": "b20a414cea52f8f9c233490fc1b46b00",
+      "username": "inxilpro"
+    },
+    "merkle_root": {
+      "ctime": 1572370690,
+      "hash": "fc55c3eb1ba138c789c7dc6b786cfd6ea284411f86c4a42eddf3517f82b0200a41b5aee4b30eb1a2cf7d412b3053c60f28e80f8a2f981bf5dc9fd72436dad2ca",
+      "hash_meta": "d4d436207b495fe0c13c895c4e0f8d18ca52a4dbfaf510b287efa11415b41ca1",
+      "seqno": 8496043
+    },
+    "service": {
+      "entropy": "YkO85HfZQlCavzW0nZELJ6Pk",
+      "hostname": "cmorrell.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.7.2"
+  },
+  "ctime": 1572370696,
+  "expire_in": 504576000,
+  "prev": "7bffdddeb45fa3bf29e0b807c479c6344a253f147676914ae2da110f685c3f5a",
+  "seqno": 30,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgt8xzujeUgynJ7R8q/24pcLmKTawgJ/AtVnUuSRVQHIsKp3BheWxvYWTESpcCHsQge//d3rRfo78p4LgHxHnGNEolPxR2dpFK4toRD2hcP1rEIEQuCe2ua+XgH7X9JHSeugTmKLBbmBtLJTvK60ufhG5KAgHCo3NpZ8RAT1G+clKtyKNYd6h4mK3K/blqHMzTeq3ttYo+DcQxBfDUTBmk5lqUoR79+orIv3vQahmqzCS47hToqFZKMi+sD6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIC6q3ytjCWSD/JmBDusaDsTK0K6vneHKyDaJBAmwBETvo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/inxilpro
+
+==================================================================

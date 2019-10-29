@@ -15,6 +15,7 @@ export default function Index() {
 			
 			<div className="lg:flex">
 				<div className="flex-grow">
+					
 					<h1 className="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 						Hi, I'm Chris.
 					</h1>
