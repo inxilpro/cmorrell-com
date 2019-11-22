@@ -6,15 +6,14 @@
  */
 
 import React from "react";
-import { Link } from "gatsby";
 
 const defaultClassName = `text-gray-800 font-bold hover:underline`;
 
 export default function ExternalLink({ children, to, className = defaultClassName }) {
-	return <Link
+	return <a
 		target="_blank"
 		rel="noopener noreferrer"
-		to={ to }
+		href={ to }
 		className={ className }
 		children={ children }
 	/>;
