@@ -1,2 +1,2 @@
 (window.webpackJsonp=window.webpackJsonp||[]).push([[5],{v5of:function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return r}));var a=n("q1tI"),l=n.n(a),o=n("TJpk"),c=n("Bl7J");function r(){return l.a.createElement(c.a,null,l.a.createElement(o.Helmet,null,l.a.createElement("meta",{name:"robots",content:"noindex"})),l.a.createElement("h1",{className:"text-5xl lg:text-6xl font-bold font-slant text-gray-800"},"Some totally unsubstantiated advice…"),l.a.createElement("p",{className:"text-xl lg:text-2xl leading-normal my-4"},"Coming soon!"))}}}]);
-//# sourceMappingURL=component---src-pages-js-9d5ed51950e2777269a0.js.map
+//# sourceMappingURL=component---src-pages-js-ca9574d8fb6db3b9f4a7.js.map
