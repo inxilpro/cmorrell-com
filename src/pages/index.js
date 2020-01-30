@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "gatsby";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ExternalLink from '../components/ExternalLink';
@@ -79,6 +80,14 @@ export default function Index() {
 						I update this site very infrequently, but I may post interesting things
 						here from time-to-time.
 					</p>
+					
+					<ul className="list-disc ml-6">
+						<li className="my-2">
+							<Link to="php-fpm" className="text-gray-600 font-bold underline hover:text-black">
+								Tuning dynamic php-fpm settings
+							</Link> (published in early 2020)
+						</li>
+					</ul>
 				</div>
 				<Sidebar />
 			</div>

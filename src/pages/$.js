@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 
 // TODO: Source https://api.npmjs.org/downloads/point/2000-01-01:2019-10-28/app-root-path
 
-export default function Index() {
+export default function FinancialAdvice() {
 	return (
 		<Layout>
 			
