@@ -19,7 +19,8 @@ body {
 }
 
 code {
-	@apply bg-gray-700 text-white inline-block px-2 rounded font-mono font-bold;
+	@apply bg-gray-200 text-gray-800 inline-block px-2 rounded font-mono border border-gray-300;
+	font-size: 85%;
 }
 
 @tailwind components;
