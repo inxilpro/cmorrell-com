@@ -111,6 +111,9 @@ These are the relationship methods that seem to actually matter to outside calle
   - `match` — responsible for matching results back to parent models
   - `initRelation` — initialize the relation before query. In the case of a hasMany, for instance,
     this will set up an empty Eloquent Collection
+  - `touch` — updates the `updated_at` timestamp for the related model
+  - `getQuery` — returns the underlying **Eloquent** query builder (`getBaseQuery` gets the underlying
+    base query builder, but it doesn't seem like that's used anywhere in the framework)
 
 ## General Notes
 In `HasRelationships::morphTo` the framework uses the lack of attributes to determine if a relation
@@ -118,3 +121,58 @@ should be instantiated in an eager/non-eager context.
 
 It's necessary to handle self-relationships where a table may be joined in multiple
 times, and therefore needs to do something like `getRelationExistenceQueryForSelfRelation` 
+
+## Half-baked thoughts :)
+
+If we're trying to build a more generic implementation of relationships, the things that 
+matter in particular are:
+
+- `getRelationExistenceCountQuery` (`getRelationExistenceQuery` is technically just an optimization)
+- `match`
+- `addEagerConstraints`
+
+We neeed to be able to create the following queries:
+
+```mysql
+select count(*)
+from related_table
+where related_table.local_key = parent_table.foreign_key
+```
+
+```mysql
+select *
+from related_table
+where related_table.local_key = ?
+```
+
+```mysql
+select *
+from related_table
+where related_table.local_key in (?, ?, ?)
+```
+
+This means that we need an API something like:
+
+```php
+// For simple cases where you really only need to match related instances
+// back using a single attribute
+RelatedModel::query()
+	->where('special_attribute', '>', 42)
+	->asRelation()
+	->match($model); // same as ->matchOn($model, $model->getKeyName(), (new RelatedModel()->getForeignKey())
+
+// For complex cases where you need to handle custom logic when matching
+// results back to the eager-loaded collection
+RelatedModel::query()
+	->where('special_attribute', '>', 42)
+	->asRelation()
+	->match(function(array $models, Collection $results, string $relation) {});
+```
+
+In non-eager contexts, `match($model)` would just add a simple constraint to the
+query builder (i.e. `where user_id = 1`). We'd need a way to indicate the direction
+of the matching (i.e. belongs to or has), which maybe would need to be a separate
+function.
+
+In eager contexts, this could easily generate the `where in()` in the same manner
+and then do the matching the same way traditional relationships work.
