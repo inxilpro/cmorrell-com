@@ -94,17 +94,23 @@ underlying query builder.
 The `withAggregate()` method is responsible for all the `withCount`/`withMax`/etc calls:
 
 ## Relation Interface
+These are the relationship methods that seem to actually matter to outside callers:
 
-  - Relation::noConstraints
-  - getRelationExistenceQuery
-  - getRelationExistenceCountQuery
-  - getRelated
-  - getRelationCountHash
-  - getResults
-  - addEagerConstraints
-  - match
-  - initRelation
-  - getEager
+  - `Relation::noConstraints` — tells relationships to load without the default constraints. This
+    sets a static property that relationships have to check during `__construct()`
+  - `getRelationExistenceQuery` — gets the version of the relationship for checking the existence
+    of the related models. This is usually a `where exists ( ... )` subquery.
+  - `getRelationExistenceCountQuery` — same as above but for when the count matters
+  - `getRelated` — get the model for use in the relationship
+  - `getRelationCountHash` — get an alias name that can be used when joining a table to itself
+    or for other cases where a distinction needs to be made between multiple references to the
+    same table. Generally results in `"laravel_reserved_X"` where `X` is incremented each time.
+  - `getResults` — get the results of the query in a non-eager call
+  - `getEager` — get the results of the query in an eager call
+  - `addEagerConstraints` — tells the relation to apply eager constraints to the query
+  - `match` — responsible for matching results back to parent models
+  - `initRelation` — initialize the relation before query. In the case of a hasMany, for instance,
+    this will set up an empty Eloquent Collection
 
 ## General Notes
 In `HasRelationships::morphTo` the framework uses the lack of attributes to determine if a relation
