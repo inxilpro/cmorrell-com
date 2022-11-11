@@ -1,0 +1,23 @@
+{
+    "subject": "acct:inxilpro@jawns.club",
+    "aliases": [
+        "https://jawns.club/@inxilpro",
+        "https://jawns.club/users/inxilpro"
+    ],
+    "links": [
+        {
+            "rel": "http://webfinger.net/rel/profile-page",
+            "type": "text/html",
+            "href": "https://jawns.club/@inxilpro"
+        },
+        {
+            "rel": "self",
+            "type": "application/activity+json",
+            "href": "https://jawns.club/users/inxilpro"
+        },
+        {
+            "rel": "http://ostatus.org/schema/1.0/subscribe",
+            "template": "https://jawns.club/authorize_interaction?uri={uri}"
+        }
+    ]
+}
