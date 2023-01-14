@@ -2,6 +2,7 @@ import { Link } from "gatsby";
 import React from "react";
 import Github from 'simple-icons/icons/github.svg';
 import Twitter from 'simple-icons/icons/twitter.svg';
+import Mastodon from 'simple-icons/icons/mastodon.svg';
 
 export default function Header({ siteTitle }) {
 	return (
@@ -13,6 +14,12 @@ export default function Header({ siteTitle }) {
 					</Link>
 				</h1>
 				<div className="ml-auto flex -mx-1">
+					<a className="mx-1 no-underline opacity-75 hover:opacity-100"
+					   href="https://any.dev/@chris"
+					   target="_blank"
+					   rel="me"
+					   title="Chris Morrell on Mastodon"
+					   children={ <Mastodon className="h-6 w-6 fill-current" /> } />
 					<a className="mx-1 no-underline opacity-75 hover:opacity-100"
 					   href="https://twitter.com/inxilpro"
 					   target="_blank"
