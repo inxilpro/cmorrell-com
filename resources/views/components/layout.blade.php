@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Chris Morrell</title>
-	@vite('resources/css/app.css')
-	@vite('resources/js/app.js')
+	@vite(['resources/css/app.css', 'resources/js/app.js'])
+	<script defer data-domain="cmorrell.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="antialiased">
 <div class="flex flex-col min-h-screen antialiased">
