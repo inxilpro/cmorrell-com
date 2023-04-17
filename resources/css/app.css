@@ -23,6 +23,10 @@ code {
 	font-size: 85%;
 }
 
+pre > code {
+	@apply block mb-4;
+}
+
 @tailwind components;
 
 @tailwind utilities;
