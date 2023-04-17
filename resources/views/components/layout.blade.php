@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Chris Morrell</title>
 	@vite('resources/css/app.css')
+	@vite('resources/js/app.js')
 </head>
 <body class="antialiased">
 <div class="flex flex-col min-h-screen antialiased">
