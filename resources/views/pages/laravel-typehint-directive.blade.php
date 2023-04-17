@@ -8,10 +8,29 @@
 		Blade templates from time to time. This directive gives you a more ergonomic option:
 	</p>
 	
-	<x-torchlight-code language="blade">
-		@typehint(\App\User $user)
-	</x-torchlight-code>
+	<pre>
+		<x-torchlight-code language="blade">
+			@verbatim
+			{{-- Now my IDE knows that $user is a User object --}}
+			@typehint(\App\User $user)
+			@endverbatim
+		</x-torchlight-code>
+	</pre>
+	
+	<p class="text-xl lg:text-2xl leading-normal my-4">
+		First, open up the PhpStorm blade settings and add this:
+	</p>
 	
 	<img src="{{ asset('images/shots/typehint-phpstorm.png') }}" />
 	
+	<p class="text-xl lg:text-2xl leading-normal my-4">
+		Then register an empty directive in your service provider:
+	</p>
+	
+	<pre>
+		<x-torchlight-code language="php">
+			Blade::directive('typehint', static fn() => '');
+		</x-torchlight-code>
+	</pre>
+
 </x-layout>
