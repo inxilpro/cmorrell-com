@@ -1,4 +1,8 @@
 module.exports = {
+	content: [
+		"./resources/**/*.blade.php",
+		"./resources/**/*.js",
+	],
 	theme: {
 		extend: {},
 		screens: {
@@ -10,7 +14,5 @@ module.exports = {
 		textColor: ['responsive', 'hover', 'focus', 'group-hover'],
 		textDecoration: ['responsive', 'hover', 'focus', 'group-hover'],
 	},
-	plugins: [
-		require('glhd-tailwindcss-transitions')(),
-	],
+	plugins: [],
 };

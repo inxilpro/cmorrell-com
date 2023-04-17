@@ -1,52 +1,14 @@
 {
-	"name": "cmorrell-com",
-	"private": true,
-	"description": "Chris Morrell's personal website",
-	"version": "1.0.0",
-	"homepage": "https://cmorrell.com",
-	"author": "Chris Morrell",
-	"dependencies": {
-		"@mdx-js/mdx": "^1.6.22",
-		"@mdx-js/react": "^1.6.22",
-		"gatsby": "^2.17.4",
-		"gatsby-image": "^2.2.29",
-		"gatsby-plugin-manifest": "^2.2.23",
-		"gatsby-plugin-mdx": "^1.10.1",
-		"gatsby-plugin-offline": "^3.0.16",
-		"gatsby-plugin-react-helmet": "^3.1.13",
-		"gatsby-plugin-sharp": "^2.2.32",
-		"gatsby-source-filesystem": "^2.1.33",
-		"gatsby-transformer-sharp": "^2.3.0",
-		"prop-types": "^15.7.2",
-		"react": "^16.11.0",
-		"react-dom": "^16.11.0",
-		"react-helmet": "^5.2.1",
-		"simple-icons": "^1.19.0"
-	},
-	"devDependencies": {
-		"dotenv": "^8.2.0",
-		"gatsby-plugin-postcss": "^2.1.13",
-		"gatsby-plugin-purgecss": "^4.0.1",
-		"gatsby-plugin-react-svg": "^2.1.2",
-		"gatsby-source-github-api": "^0.1.3",
-		"gh-pages": "^2.1.1",
-		"glhd-tailwindcss-transitions": "^0.3.0",
-		"prettier": "^1.18.2",
-		"tailwindcss": "^1.1.3"
-	},
-	"license": "Copyright 2019",
-	"scripts": {
-		"build": "gatsby build",
-		"tailwind": "tailwind build src/app.css -o tailwind.css",
-		"develop": "gatsby develop",
-		"format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-		"start": "npm run develop",
-		"serve": "gatsby serve",
-		"test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-		"deploy": "gatsby build && gh-pages -d public"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/inxilpro/cmorrell-com"
-	}
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.14",
+        "laravel-vite-plugin": "^0.7.2",
+        "postcss": "^8.4.22",
+        "tailwindcss": "^3.3.1",
+        "vite": "^4.0.0"
+    }
 }
