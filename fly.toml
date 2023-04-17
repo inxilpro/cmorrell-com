@@ -10,7 +10,7 @@ primary_region = "ewr"
 
 [env]
   APP_ENV = "production"
-  APP_URL = "https://cmorrell.fly.dev"
+  APP_URL = "https://cmorrell.com"
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
