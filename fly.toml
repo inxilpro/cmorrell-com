@@ -1,0 +1,27 @@
+# fly.toml file generated for cmorrell on 2023-04-17T14:48:51-04:00
+
+app = "cmorrell"
+primary_region = "ewr"
+
+[build]
+  [build.args]
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.2"
+
+[env]
+  APP_ENV = "production"
+  APP_URL = "https://cmorrell.fly.dev"
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "info"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
