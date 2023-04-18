@@ -1,7 +1,7 @@
 @font-face {
 	font-family: "House Slant";
-	src: url('./fonts/HouseSlant.eot');
-	src: url("./fonts/HouseSlant.eot?#iefix") format("embedded-opentype"), url("./fonts/HouseSlant.woff") format("woff");
+	src: url('../fonts/HouseSlant.eot');
+	src: url("../fonts/HouseSlant.eot?#iefix") format("embedded-opentype"), url("../fonts/HouseSlant.woff") format("woff");
 	font-style: normal;
 	font-weight: 400;
 	font-stretch: normal;
@@ -25,6 +25,10 @@ code {
 
 pre > code {
 	@apply block mb-4;
+}
+
+.torchlight .line-number {
+	@apply mr-4 ml-2;
 }
 
 @tailwind components;
