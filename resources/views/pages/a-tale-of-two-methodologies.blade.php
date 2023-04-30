@@ -86,6 +86,24 @@
 				in his [Eloquent Performance Patterns](https://laracasts.com/series/eloquent-performance-patterns)
 				course to access the most recent login using a scope and a dynamic relationship.
 			</x-markdown>
+			
+			<div class="text-center font-serif text-6xl text-gray-300 my-12">
+				III
+			</div>
+			
+			<x-markdown>
+				## Part Three: Things get interesting
+				
+				OK. Our apps have been running for months and things are going great. Both solutions
+				work fine, and while the traditional app is missing some login history, there's not
+				much we can do about it, so we're just moving on.
+				
+				Now our last requirement comes in:
+				
+				> Users who start to log in less frequently than they have in the past should receive 
+				> an email asking if there's anything we can do to improve our site.
+				
+			</x-markdown>
 		</div>
 	
 	</x-slot:main>
