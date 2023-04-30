@@ -51,9 +51,13 @@
 		</div>
 	</header>
 	<main class="flex-1">
-		<div class="container mx-auto p-4">
-			{{ $slot }}
-		</div>
+		@if(isset($main) && $main->isNotEmpty())
+			{{ $main }}
+		@else
+			<div class="container mx-auto p-4">
+				{{ $slot }}
+			</div>
+		@endif
 	</main>
 	<footer class="bg-gray-100">
 		<div class="container mx-auto p-4 py-8 pb-12 text-sm text-gray-700">
