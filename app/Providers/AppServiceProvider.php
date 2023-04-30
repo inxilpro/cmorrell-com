@@ -2,23 +2,23 @@
 
 namespace App\Providers;
 
+use App\Support\TorchlightManager;
 use Illuminate\Support\ServiceProvider;
+use Torchlight\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+	public function register(): void
+	{
+		//
+	}
+	
+	public function boot(): void
+	{
+		$this->app->booted(function() {
+			$this->app->singleton(Manager::class, function() {
+				return new TorchlightManager();
+			});
+		});
+	}
 }
