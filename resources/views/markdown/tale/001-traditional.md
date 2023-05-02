@@ -1,38 +1,36 @@
 ### Traditional
 
-In a traditional Laravel app, this is pretty straightforward. We'll just
-add a column to our `users` table and then update that column every time
-the user logs in:
+In a traditional Laravel app, we’ll mostly accomplish this with a simple
+RESTful MVC setup:
 
 ```php
 
-// First, we'll set up a migration
-return new class extends Migration
+class PageController
 {
-    public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('logged_in_at')->nullable();
-        });
-    }
-}
+    // ... standard CRUD endpoints and views ...
 
-// Next, we'll create an event listener
-class UserLoginListener {
-    public function handle(Login $event)
+    public function store(PageRequest $request)
     {
-        $event->user->update([
-            'logged_in_at' => now(),
+        $page = Page::create([
+            'slug' => $request->input('slug'),
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+            'author_id' => Auth::id(),
         ]);
+        
+        return to_route('pages.edit', $page);
     }
-}
-
-// And finally update our EventServiceProvider
-class EventServiceProvider extends ServiceProvider
-{
-    protected $listen = [
-        Login::class => [UserLoginListener::class],
-    ];
+    
+    public function update(PageRequest $request, Page $page)
+    {
+        $page->update([
+            'slug' => $request->input('slug'),
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+        ]);
+        
+        return to_route('pages.edit', $page);
+    }
 }
 
 ```

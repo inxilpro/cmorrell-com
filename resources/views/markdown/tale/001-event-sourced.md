@@ -1,76 +1,116 @@
 ### Event Sourced
 
-In an event sourced Laravel app, we need to set up a few more things. Let's start by
-getting all the boilerplate out of the way:
+In an event sourced Laravel app, we need to set up quite a few more things. 
+First, let's create some events:
 
 ```php
 
-// First, we'll create an event for logins
-class UserLoggedIn extends ShouldBeStored
+class PageCreated extends ShouldBeStored
 {
 	public function __construct(
-	    public CarbonInterface $logged_in_at,
-	    public string $device_id,
-	    public string $request_id,
-	    public string $session_id,
+	    public string $slug,
+	    public string $title,
+	    public string $body,
+	    public int $author_id,
 	    public string $ip,
 	    public string $ua,
 	) {
 	}
 }
 
-// Next, we'll add the necessary columns to our users table
-return new class extends Migration
+class PageUpdated extends ShouldBeStored
 {
-    public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('logged_in_at')->nullable();
-            $table->uuid('aggregate_uuid');
-        });
-    }
+	// Same as PageCreated for simplicity's sake
 }
+```
 
-// Then we'll set up an aggregate root for our User
-class UserAggregateRoot extends AggregateRoot
+Next, we’ll create our aggregate root, which serves as the gateway between
+our application and our events.
+
+```php
+class PageAggregateRoot extends AggregateRoot
 {
-    public static function retrieveForUser(User $user): self
+    protected bool $exists = false;
+
+    public static function retrieveForModel(Page $page): self
     {
-        return self::retrieve($user->aggregate_uuid);
+        return self::retrieve($page->aggregate_uuid);
     }
 
-	public function recordLogin(Request $request): self
+	public function create(PageRequest $request): self
 	{
-		return $this->recordThat(new UserLoggedIn(
-		    logged_in_at: now(),
-            device_id: $request->cookie('device_id'),
-            request_id: $request->header('x-request-id'),
-            session_id: $request->session()->getId(),
+	    // We're going to just accept the request here to keep things
+	    // simple. Typically, your aggregate root probably wouldn't
+	    // be coupled to the form request implementation.
+	    
+		return $this->recordThat(new PageCreated(
+		    slug: $request->input('slug'),
+            title: $request->input('title'),
+            body: $request->input('body'),
+            author_id: $request->user()->id,
             ip: $request->ip(),
             ua: $request->userAgent(),
 		));
 	}
-}
-
-// Now we can set up our listener (using the same changes to
-// the event service provider as our traditional code)
-class UserLoginListener {
-    public function handle(Login $event)
-    {
-        UserAggregateRoot::retrieveForUser($event->user)
-            ->recordLogin(Request::instance());
-    }
-}
-
-// And finally (phew!) we can set up a projector to project
-// our data to the user model
-class UserLoginProjector extends Projector implements ShouldQueue
-{
-	public function onUserLoggedIn(UserLoggedIn $event)
+	
+	public function update(PageRequest $request): self
 	{
-	    User::query()
-	        ->where('aggregate_uuid', $event->aggregateRootUuid())
-	        ->update(['logged_in_at' => $event->logged_in_at]);
+	    // Basically the same as 'create' for now
 	}
+}
+```
+
+Next, we'll create a projector, which will react to our events and create
+the appropriate database models.
+
+```php
+class PageProjector extends Projector
+{
+	public function onPageCreated(PageCreated $event)
+	{
+	     Page::create([
+	        'aggregate_uuid' => $event->aggregateRootUuid(),
+            'slug' => $event->slug,
+            'title' => $event->title,
+            'body' => $event->body,
+            'author_id' => $event->author_id,
+        ]);
+	}
+	
+	public function onPageUpdated(PageUpdated $event)
+	{
+	     Page::query()
+	        ->firstWhere(['aggregate_uuid' => $event->aggregateRootUuid()])
+	        ->update([
+                'slug' => $event->slug,
+                'title' => $event->title,
+                'body' => $event->body,
+            ]);
+	}
+}
+```
+
+And finally, we'll create our controller.
+
+```php
+class PageController
+{
+    // ... standard CRUD endpoints and views ...
+
+    public function store(PageRequest $request)
+    {
+        $aggregate_uuid = Str::uuid();
+        
+        PageAggregateRoot::retrieve($aggregate_uuid)->create($request);
+        
+        return to_route('pages.edit', Page::firstWhere(['aggregate_uuid' => $aggregate_uuid]));
+    }
+    
+    public function update(PageRequest $request, Page $page)
+    {
+        PageAggregateRoot::retrieve($page->aggregate_uuid)->update($request);
+        
+        return to_route('pages.edit', $page);
+    }
 }
 ```
