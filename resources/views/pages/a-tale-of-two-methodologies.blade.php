@@ -81,9 +81,8 @@
 				application was able to retroactively fill the history table using existing events. 
 				This is one of the benefits of event sourcing: **replaying events**.
 				
-				*Note:* In either approach, we can use a technique described by Jonathan Reinink
-				in his [Eloquent Performance Patterns](https://laracasts.com/series/eloquent-performance-patterns)
-				course to access the most recent login using a scope and a dynamic relationship.
+				Because we can replay events, it makes it possible to work with historical data
+				and almost “retroactively” change our application.
 			</x-markdown>
 			
 			<div class="text-center font-serif text-6xl text-gray-300 my-12">
