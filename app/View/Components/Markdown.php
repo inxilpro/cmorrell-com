@@ -55,8 +55,8 @@ class Markdown extends Component
 			'default_attributes' => [
 				Heading::class => [
 					'class' => static fn(Heading $node) => match ($node->getLevel()) {
-						1 => 'text-5xl lg:text-6xl font-bold font-slant text-gray-800',
-						2 => 'text-xl lg:text-3xl font-bold font-slant my-4',
+						1 => 'text-5xl text-center font-bold font-slant text-gray-800 sm:text-left lg:text-6xl',
+						2 => 'text-2xl text-center font-bold font-slant my-4 sm:text-left lg:text-3xl',
 						3 => 'text-xl lg:text-3xl font-bold font-slant mt-6 mb-2 text-gray-600',
 						default => 'text-xl lg:text-2xl font-bold mt-6 mb-1',
 					},

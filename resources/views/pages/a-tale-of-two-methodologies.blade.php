@@ -1,7 +1,7 @@
 <x-layout>
 	<x-slot:main>
 		<div class="container mx-auto p-4">
-			<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800 mb-6">
+			<h1 class="text-5xl text-center font-bold font-slant text-gray-800 mb-6 sm:text-left lg:text-6xl">
 				A Tale of Two Methodologies
 			</h1>
 			
