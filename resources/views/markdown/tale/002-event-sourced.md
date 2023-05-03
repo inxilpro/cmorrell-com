@@ -28,9 +28,7 @@ and actually build up that table with historical data from all our existing
 `PageUpdated` events:
 
 ```shell
-
 php artisan event-sourcing:replay App\\Projectors\\PageHistoryProjector
-
 ```
 
 Once that command runs, we'll have full audit history from the beginning of

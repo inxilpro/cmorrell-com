@@ -4,7 +4,6 @@ In a traditional Laravel app, we’ll mostly accomplish this with a simple
 RESTful MVC setup:
 
 ```php
-
 class PageController
 {
     // ... standard CRUD endpoints and views ...
@@ -32,5 +31,4 @@ class PageController
         return to_route('pages.edit', $page);
     }
 }
-
 ```

@@ -1,38 +1,57 @@
 ### Event Sourced
 
-In our event sourced application, we can just add a new projector to save
-page history data:
-
 ```php
-class PageHistoryProjector extends Projector
+class PageAggregateRoot extends AggregateRoot
 {
-	public function onPageUpdated(PageUpdated $event)
+	public function createDraft(PageRequest $request): self
 	{
-	     Page::query()
-	        ->firstWhere(['aggregate_uuid' => $event->aggregateRootUuid()])
-	        ->history()
-	        ->create([
-	            'user_id' => $event->author_id,
-                'snapshot' => [
-                    'slug' => $event->slug,
-                    'title' => $event->title,
-                    'body' => $event->body,
-                ],
-            ]);
+	    return $this->recordThat(new DraftCreated(
+		    // ...
+		));
 	}
 }
 ```
 
-Now any update to a page will log a history record. But we can go a step further 
-and actually build up that table with historical data from all our existing 
-`PageUpdated` events:
-
-```shell
-
-php artisan event-sourcing:replay App\\Projectors\\PageHistoryProjector
-
+```php
+class PageController
+{
+    public function store(PageRequest $request)
+    {
+        $aggregate_uuid = Str::uuid();
+        $aggregate_root = PageAggregateRoot::retrieve($aggregate_uuid);
+        
+        if (Auth::user()->can('publish', Page::class)) {
+            $aggregate_root->create($request);
+        } else {
+            $aggregate_root->createDraft($request);
+            flash('Your changes have been sent for approval!');
+        }
+        
+        return to_route('pages.edit', Page::firstWhere(['aggregate_uuid' => $aggregate_uuid]));
+    }
+    
+    public function update(PageRequest $request, Page $page)
+    {
+        $aggregate_root = PageAggregateRoot::retrieve($page->aggregate_uuid);
+        
+        if (Auth::user()->can('publish', $page)) {
+            $aggregate_root->update($request);
+        } else {
+            $aggregate_root->createDraft($request);    
+            flash('Your changes have been sent for approval!');
+        }
+        
+        return to_route('pages.edit', $page);
+    }
+}
 ```
 
-Once that command runs, we'll have full audit history from the beginning of
-our app. In our imaginary scenario, we'd actually be able to point to Aaron
-as the culprit, and get a big fat raise!
+```php
+class PageProjector extends Projector
+{
+	public function onChangeApproved(ChangeApproved $event)
+	{
+	    // Apply changes to page
+	}
+}
+```

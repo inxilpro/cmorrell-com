@@ -4,7 +4,6 @@ In an event sourced Laravel app, we need to set up quite a few more things.
 First, let's create some events:
 
 ```php
-
 class PageCreated extends ShouldBeStored
 {
 	public function __construct(
@@ -30,8 +29,6 @@ our application and our events.
 ```php
 class PageAggregateRoot extends AggregateRoot
 {
-    protected bool $exists = false;
-
     public static function retrieveForModel(Page $page): self
     {
         return self::retrieve($page->aggregate_uuid);

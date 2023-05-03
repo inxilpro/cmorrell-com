@@ -24,7 +24,7 @@ code {
 }
 
 pre > code {
-	@apply block mb-4 overflow-x-auto;
+	@apply block mb-4 py-4 overflow-x-auto;
 }
 
 .torchlight .line-number {

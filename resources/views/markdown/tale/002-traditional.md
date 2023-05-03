@@ -5,7 +5,6 @@ roll our own solution. We'll create a new page history table and model,
 and then update our code to track changes:
 
 ```php
-
 class Page extends Model
 {
     public static function booted()
