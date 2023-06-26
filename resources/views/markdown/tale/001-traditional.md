@@ -6,8 +6,6 @@ RESTful MVC setup:
 ```php
 class PageController
 {
-    // ... standard CRUD endpoints and views ...
-
     public function store(PageRequest $request)
     {
         $page = Page::create([

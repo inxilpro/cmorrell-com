@@ -29,24 +29,15 @@ our application and our events.
 ```php
 class PageAggregateRoot extends AggregateRoot
 {
-    public static function retrieveForModel(Page $page): self
-    {
-        return self::retrieve($page->aggregate_uuid);
-    }
-
-	public function create(PageRequest $request): self
+	public function create(string $slug, string $title, string $body): self
 	{
-	    // We're going to just accept the request here to keep things
-	    // simple. Typically, your aggregate root probably wouldn't
-	    // be coupled to the form request implementation.
-	    
 		return $this->recordThat(new PageCreated(
-		    slug: $request->input('slug'),
-            title: $request->input('title'),
-            body: $request->input('body'),
-            author_id: $request->user()->id,
-            ip: $request->ip(),
-            ua: $request->userAgent(),
+		    slug: $slug,
+            title: $title,
+            body: $body,
+            author_id: Auth::id(),
+            ip: request()->ip(),
+            ua: request()->userAgent(),
 		));
 	}
 	
@@ -66,7 +57,7 @@ class PageProjector extends Projector
 	public function onPageCreated(PageCreated $event)
 	{
 	     Page::create([
-	        'aggregate_uuid' => $event->aggregateRootUuid(),
+	        'uuid' => $event->aggregateRootUuid(),
             'slug' => $event->slug,
             'title' => $event->title,
             'body' => $event->body,
@@ -77,7 +68,7 @@ class PageProjector extends Projector
 	public function onPageUpdated(PageUpdated $event)
 	{
 	     Page::query()
-	        ->firstWhere(['aggregate_uuid' => $event->aggregateRootUuid()])
+	        ->firstWhere(['uuid' => $event->aggregateRootUuid()])
 	        ->update([
                 'slug' => $event->slug,
                 'title' => $event->title,
@@ -96,16 +87,18 @@ class PageController
 
     public function store(PageRequest $request)
     {
-        $aggregate_uuid = Str::uuid();
+        $uuid = Str::uuid();
         
-        PageAggregateRoot::retrieve($aggregate_uuid)->create($request);
+        PageAggregateRoot::retrieve($uuid)
+            ->create($request->input('slug'), $request->input('title'), $request->input('body'));
         
-        return to_route('pages.edit', Page::firstWhere(['aggregate_uuid' => $aggregate_uuid]));
+        return to_route('pages.edit', Page::firstWhere(['uuid' => $uuid]));
     }
     
     public function update(PageRequest $request, Page $page)
     {
-        PageAggregateRoot::retrieve($page->aggregate_uuid)->update($request);
+        PageAggregateRoot::retrieve($page->uuid)
+            ->update($request->input('slug'), $request->input('title'), $request->input('body'));
         
         return to_route('pages.edit', $page);
     }

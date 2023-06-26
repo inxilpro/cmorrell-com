@@ -9,7 +9,7 @@ class PageHistoryProjector extends Projector
 	public function onPageUpdated(PageUpdated $event)
 	{
 	     Page::query()
-	        ->firstWhere(['aggregate_uuid' => $event->aggregateRootUuid()])
+	        ->firstWhere(['uuid' => $event->aggregateRootUuid()])
 	        ->history()
 	        ->create([
 	            'user_id' => $event->author_id,

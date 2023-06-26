@@ -17,8 +17,8 @@ class PageController
 {
     public function store(PageRequest $request)
     {
-        $aggregate_uuid = Str::uuid();
-        $aggregate_root = PageAggregateRoot::retrieve($aggregate_uuid);
+        $uuid = Str::uuid();
+        $aggregate_root = PageAggregateRoot::retrieve($uuid);
         
         if (Auth::user()->can('publish', Page::class)) {
             $aggregate_root->create($request);
@@ -27,12 +27,12 @@ class PageController
             flash('Your changes have been sent for approval!');
         }
         
-        return to_route('pages.edit', Page::firstWhere(['aggregate_uuid' => $aggregate_uuid]));
+        return to_route('pages.edit', Page::firstWhere(['uuid' => $uuid]));
     }
     
     public function update(PageRequest $request, Page $page)
     {
-        $aggregate_root = PageAggregateRoot::retrieve($page->aggregate_uuid);
+        $aggregate_root = PageAggregateRoot::retrieve($page->uuid);
         
         if (Auth::user()->can('publish', $page)) {
             $aggregate_root->update($request);

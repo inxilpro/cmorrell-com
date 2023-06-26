@@ -96,11 +96,13 @@
 				work well, and while the traditional app is missing some audit history, there's not
 				much we can do about it, so we've just moved on.
 				
-				Now our last requirement comes in:
+				It’s time to take on our newest requirement:
 				
-				> Pages designated as “important” need changes to be approved before they go live
+				> Changes need to be approved by an admin before they go live
 				
-				Let's get going!
+				We talk it over with our marketing director, and they decides they just want to receive 
+				an email when a change is submitted, and wants to approve/decline it directly from that message
+				(rather than having a new section of the site to check regularly).
 				
 			</x-markdown>
 		</div>

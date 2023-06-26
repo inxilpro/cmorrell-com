@@ -3,7 +3,7 @@ So, I've been thinking about Event Sourcing a lot. I've done
 been involved in [big Twitter threads about it](https://twitter.com/aarondfrancis/status/1652457709319471105),
 and have been talking about it with friends and coworkers non-stop lately.
 
-One thing that keeps coming up is the question of a “good, simple example” of
+One thing that keeps coming up is the question of a “good, straightforward example” of
 the value of event sourcing. And I think I came up with one!
 
 So let's set the stage:
@@ -22,7 +22,7 @@ So let's set the stage:
   - Two years pass, and now the company is much bigger. While audit logs help trace
     mistakes when they happen, they don't prevent newer, inexperienced employees from
     making improper edits in the first place. The decision is made to add an approval
-    workflow for any page designated as “important” and it’s up to you to implement it. 
+    workflow to your CMS. 
 
 Given this timeline, let's look at how we might implement these requirements in a traditional
 Laravel application and one that uses Event Sourcing (all examples will use the
