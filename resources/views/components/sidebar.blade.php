@@ -1,5 +1,25 @@
 <div class="my-12 lg:pl-12 lg:-mr-4 lg:pr-4 lg:-my-4 lg:py-8 lg:opacity-50 hover:opacity-100 transition-opacity lg:h-screen lg:sticky lg:top-0 overflow-y-auto overflow-x-hidden text-base leading-none shadow-overflow-y">
-	<h2 class="text-3xl font-bold font-slant text-gray-900 mb-8">
+	
+	<a 
+		href="https://overengineered.fm/" 
+		target="_blank" 
+		class="block mb-6 mx-auto group text-center"
+		style="max-width: 250px"
+	>
+		<div class="flex flex-col align-center border-2 border-purple-400 rounded-lg overflow-hidden shadow">
+			<img
+				class="h-auto w-full"
+				src="https://media.zencastr.com/image-files/560d77e29388483a4269cc1a/ab9e695e-eac1-4125-9ca1-5764bd441959.png"
+				alt="overengineered.fm"
+			/>
+		</div>
+		
+		<div class="p-4 text-gray-600 tracking-wider font-bold font-slant">
+			Check out our new podcast, <span class="group-hover:underline group-hover:text-blue-800">Over Engineered</span>
+		</div>
+	</a>
+	
+	<h2 class="text-3xl font-bold font-slant text-gray-900 mt-0 mb-4 border-t pt-4">
 		Interesting…
 	</h2>
 	
