@@ -141,13 +141,13 @@
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; max on a server that's mostly responsible for running PHP processes</div>
 				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.start_servers = <strong x-text="php_fpm_start_servers">50</strong></div>
 				<div class="my-4"></div>
-				<div class="text-gray-600 font-mono whitespace-no-wrap">; Minimum number spare processes php-fpm will create. In the case of a</div>
-				<div class="text-gray-600 font-mono whitespace-no-wrap">; server dedicated to running PHP, we'll set this to the same as start_servers</div>
-				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.min_spare_servers = <strong x-text="php_fpm_start_servers">50</strong></div>
+				<div class="text-gray-600 font-mono whitespace-no-wrap">; Minimum number spare processes php-fpm will create. In the case of a server</div>
+				<div class="text-gray-600 font-mono whitespace-no-wrap">; dedicated to running PHP, we'll set this to about 1/3 of the remaining capacity</div>
+				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.min_spare_servers = <strong x-text="php_fpm_min_spare_servers">15</strong></div>
 				<div class="my-4"></div>
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; Maximum number spare processes php-fpm will create. If more than this</div>
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; many processes are idle, some will be killed.</div>
-				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.max_spare_servers = <strong x-text="php_fpm_max_spare_servers">75</strong></div>
+				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.max_spare_servers = <strong x-text="php_fpm_max_spare_servers">40</strong></div>
 				<div class="my-4"></div>
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; After this many requests, a php-fpm process will respawn. This is useful</div>
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; to guard against memory leaks, but causes a small performance hit. Set to</div>
@@ -177,8 +177,11 @@
 			get php_fpm_start_servers() {
 				return Math.floor(this.php_fpm_max_children / 2 / 5) * 5;
 			},
+			get php_fpm_min_spare_servers() {
+				return Math.floor((this.php_fpm_max_children - this.php_fpm_start_servers) / 3 / 5) * 5;
+			},
 			get php_fpm_max_spare_servers() {
-				return Math.floor((this.php_fpm_max_children - (this.php_fpm_start_servers / 2)) / 5) * 5;
+				return Math.floor((this.php_fpm_max_children - this.php_fpm_start_servers) / 1.25 / 5) * 5;
 			},
 		}));
 	});
