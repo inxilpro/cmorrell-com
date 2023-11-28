@@ -75,7 +75,7 @@
 			
 			<div class="flex my-8 p-4 border rounded-lg items-center">
 				<a class="mr-4 no-underline opacity-75 hover:opacity-100"
-				   href="https://any.dev/@chris"
+				   href="https://rtsn.dev/@chris"
 				   target="_blank"
 				   rel="noopener noreferrer"
 				   title="Chris Morrell on Mastodon"
@@ -85,12 +85,12 @@
 					</svg>
 				</a>
 				<a class="font-slant text-xl lg:text-3xl leading-none opacity-75 hover:opacity-100"
-				   href="https://any.dev/@chris"
+				   href="https://rtsn.dev/@chris"
 				   rel="noopener noreferrer"
 				   target="_blank"
 				>
 					Follow me on Mastodon
-					<span class="text-gray-500 text-lg lg:text-xl">@chris@any.dev</span>
+					<span class="text-gray-500 text-lg lg:text-xl">@chris@rtsn.dev</span>
 				</a>
 			</div>
 			

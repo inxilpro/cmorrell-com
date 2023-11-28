@@ -18,7 +18,7 @@
 			</h1>
 			<div class="ml-auto flex -mx-1">
 				<a class="mx-1 no-underline opacity-75 hover:opacity-100"
-				   href="https://any.dev/@chris"
+				   href="https://rtsn.dev/@chris"
 				   target="_blank"
 				   rel="me"
 				   title="Chris Morrell on Mastodon"
