@@ -23,8 +23,8 @@ class Downloads
 	
 	public function __invoke()
 	{
-		$this->npm();
 		$this->packagist();
+		$this->npm();
 		
 		return $this;
 	}
