@@ -8,6 +8,10 @@ primary_region = "ewr"
     NODE_VERSION = "18"
     PHP_VERSION = "8.2"
 
+[mounts]
+  source = "storage_vol"
+  destination = "/var/www/html/storage"
+
 [env]
   APP_ENV = "production"
   APP_URL = "https://cmorrell.com"

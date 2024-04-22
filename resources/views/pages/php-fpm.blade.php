@@ -1,10 +1,4 @@
-<x-layout title="Tuning dynamic php-fpm settings - Chris Morrell">
-	<x-slot:meta>
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="{{ url('/php-fpm') }}">
-		<meta property="og:image" content="{{ asset('opengraph/php-fpm.png') }}">
-		<meta property="twitter:image" content="{{ asset('opengraph/php-fpm.png') }}">
-	</x-slot:meta>
+<x-layout title="Tuning dynamic php-fpm settings - Chris Morrell" og="php-fpm">
 	
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		Tuning dynamic php-fpm settings

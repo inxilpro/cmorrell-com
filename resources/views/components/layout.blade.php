@@ -1,5 +1,6 @@
 @props([
 	'title' => 'Chris Morrell',
+	'og' => null,
 ])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -10,6 +11,18 @@
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 	<script defer data-domain="cmorrell.com" src="https://plausible.io/js/script.js"></script>
 	{{ $meta ?? null }}
+	@if($og)
+		<meta property="og:url" content="{{ url()->current() }}">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="{{ $title }}">
+		<meta property="og:image" content="https://cmorrell.com/opengraph/{{ $og }}.png">
+	
+		<meta name="twitter:card" content="summary_large_image">
+		<meta property="twitter:domain" content="cmorrell.com">
+		<meta property="twitter:url" content="{{ url()->current() }}">
+		<meta name="twitter:title" content="{{ $title }}">
+		<meta name="twitter:image" content="https://cmorrell.com/opengraph/{{ $og }}.png">
+	@endif
 </head>
 <body class="antialiased">
 <div class="flex flex-col min-h-screen antialiased">
