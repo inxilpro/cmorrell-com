@@ -1,6 +1,13 @@
 @php $downloads = app(\App\Http\Downloads::class)(); @endphp
 
 <x-layout title="Countdown to One Billion - Chris Morrell">
+	<x-slot:meta>
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="{{ url('/one-billion') }}">
+		<meta property="og:image" content="{{ asset('opengraph/one-billion.png') }}">
+		<meta property="twitter:image" content="{{ asset('opengraph/one-billion.png') }}">
+	</x-slot:meta>
+	
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		Countdown to One Billion.
 	</h1>

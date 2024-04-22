@@ -9,6 +9,7 @@
 	<title>{{ $title }}</title>
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 	<script defer data-domain="cmorrell.com" src="https://plausible.io/js/script.js"></script>
+	{{ $meta ?? null }}
 </head>
 <body class="antialiased">
 <div class="flex flex-col min-h-screen antialiased">
