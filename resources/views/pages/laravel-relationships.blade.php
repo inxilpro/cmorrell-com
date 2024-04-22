@@ -1,6 +1,6 @@
-<x-layout>
+<x-layout title="Digging into Laravel Relationships">
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
-		Digging into Laravel relationships
+		Digging into Laravel Relationships
 	</h1>
 	
 	<div class="bg-blue-100 p-4 border border-blue-200 rounded my-4 flex items-center">

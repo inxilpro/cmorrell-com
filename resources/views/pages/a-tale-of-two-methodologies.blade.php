@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="A Tale of Two Methodologies">
 	<x-slot:main>
 		<div class="container mx-auto p-4">
 			<h1 class="text-5xl text-center font-bold font-slant text-gray-800 mb-6 sm:text-left lg:text-6xl">

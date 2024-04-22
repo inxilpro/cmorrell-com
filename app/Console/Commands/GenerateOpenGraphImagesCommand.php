@@ -7,6 +7,9 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Console\Command;
+use Illuminate\Routing\Route;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Str;
 use Throwable;
 
 class GenerateOpenGraphImagesCommand extends Command
@@ -23,14 +26,11 @@ class GenerateOpenGraphImagesCommand extends Command
 			$this->quit();
 		});
 		
+		$routes = app(Router::class)->getRoutes();
+		
 		try {
-			$slugs = [
-				'one-billion' => 'Countdown to One Billion',
-				'php-fpm' => 'Tuning dynamic php-fpm settings',
-			];
-			
-			foreach ($slugs as $slug => $title) {
-				$this->screenShotOpenGraphImage($title, $slug);
+			foreach ($routes as $route) {
+				$this->screenShotOpenGraphImage($route);
 			}
 		} finally {
 			$this->quit();
@@ -39,10 +39,16 @@ class GenerateOpenGraphImagesCommand extends Command
 		return 0;
 	}
 	
-	protected function screenShotOpenGraphImage(string $title, string $slug): string
+	protected function screenShotOpenGraphImage(Route $route): string
 	{
-		$url = url('/opengraph?'.http_build_query(['title' => $title, 'url' => "cmorrell.com/{$slug}"]));
-		$path = public_path("/opengraph/{$slug}.png");
+		$url = url($route->uri().'?og=render');
+		$path = ltrim(parse_url($route->uri(), PHP_URL_PATH), '/');
+		$slug = match ($path) {
+			'' => 'home',
+			default => Str::slug(strtolower($path)),
+		};
+		
+		$filename = public_path("/opengraph/{$slug}.png");
 		
 		$this->info($url);
 		
@@ -52,9 +58,9 @@ class GenerateOpenGraphImagesCommand extends Command
 			$this->driver->wait()
 				->until(fn(RemoteWebDriver $driver) => $driver->executeScript('return `complete` === document.readyState'));
 			
-			$this->driver->findElement(WebDriverBy::id('og-image'))->takeElementScreenshot($path);
+			$this->driver->findElement(WebDriverBy::id('og-image'))->takeElementScreenshot($filename);
 			
-			$this->info($path);
+			$this->info($filename);
 		} catch (Throwable $exception) {
 			$this->error($exception->getMessage());
 		}
