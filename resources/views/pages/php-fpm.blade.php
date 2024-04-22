@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Tuning dynamic php-fpm settings - Chris Morrell">
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		Tuning dynamic php-fpm settings
 	</h1>

@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Laravel @typehint Directive - Chris Morrell">
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		Laravel {{ '@' }}typehint Directive
 	</h1>

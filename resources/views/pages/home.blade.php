@@ -107,6 +107,11 @@
 						Tuning dynamic php-fpm settings
 					</a> (published in early 2020)
 				</li>
+				<li class="my-2">
+					<a href="{{ url('/billion') }}" class="text-gray-600 font-bold underline hover:text-black">
+						Countdown to One Billion
+					</a>
+				</li>
 			</ul>
 		
 		</div>

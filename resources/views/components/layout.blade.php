@@ -1,9 +1,12 @@
+@props([
+	'title' => 'Chris Morrell',
+])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Chris Morrell</title>
+	<title>{{ $title }}</title>
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 	<script defer data-domain="cmorrell.com" src="https://plausible.io/js/script.js"></script>
 </head>
