@@ -48,22 +48,45 @@ class Downloads
 		
 		$package_names = collect($packages['results'])->pluck('package.name');
 		
-		$end = now()->format('Y-m-d');
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
 			
-			$stats = Cache::remember(
-				key: "npm:{$package_name}:stats:v2",
+			$downloads = Cache::remember(
+				key: "npm:{$package_name}:download_sum:v1",
 				ttl: now()->addDay(),
-				callback: fn() => Http::get("https://npm-stat.com/api/download-counts?package={$package_name}&from=2000-01-01&until=$end")->json(),
-				// callback: fn() => Http::get("https://api.npmjs.org/downloads/point/2000-01-01:{$end}/{$package_name}")->json(),
+				callback: fn() => $this->npmPackage($package_name),
 			);
-			
-			$downloads = array_sum(collect($stats)->first(default: []));
 			
 			$this->total += $downloads;
 			$this->data[] = ['npm', $package_name, number_format($downloads)];
 		}
+	}
+	
+	protected function npmPackage(string $package_name): int
+	{
+		$count = 0;
+		$start = now()->subYearNoOverflow();
+		$end = now();
+		
+		do {
+			$url = sprintf(
+				'https://npm-trends-proxy.uidotdev.workers.dev/npm/downloads/range/%s:%s/%s',
+				$start->format('Y-m-d'), $end->format('Y-m-d'), $package_name
+			);
+			
+			$response = Http::get($url);
+			
+			if (! empty($response->json('error'))) {
+				break;
+			}
+			
+			$count += collect($response->json('downloads'))->pluck('downloads')->sum();
+			
+			$end = $start->toImmutable()->subDay();
+			$start = $end->toImmutable()->subYearNoOverflow();
+		} while ($response->ok());
+		
+		return $count;
 	}
 	
 	public function packagist(): void
