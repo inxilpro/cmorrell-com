@@ -138,8 +138,9 @@
 					<span x-text="average_ram">60</span> = <span x-text="actual_php_fpm_max_children">102</span></div>
 				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.max_children = <strong x-text="php_fpm_max_children">100</strong></div>
 				<div class="my-4"></div>
-				<div class="text-gray-600 font-mono whitespace-no-wrap">; When php-fpm starts, have this many processes waiting for requests. Set to 50% of</div>
-				<div class="text-gray-600 font-mono whitespace-no-wrap">; max on a server that's mostly responsible for running PHP processes</div>
+				<div class="text-gray-600 font-mono whitespace-no-wrap">; When php-fpm starts, have this many processes waiting for requests.</div>
+				<div class="text-gray-600 font-mono whitespace-no-wrap">; Set to 50% of max on a server that's mostly responsible for running</div>
+				<div class="text-gray-600 font-mono whitespace-no-wrap">; PHP processes, but should never be more than pm.max_spare_servers.</div>
 				<div class="text-gray-900 font-mono whitespace-no-wrap">pm.start_servers = <strong x-text="php_fpm_start_servers">50</strong></div>
 				<div class="my-4"></div>
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; Minimum number spare processes php-fpm will create. In the case of a server</div>
@@ -176,7 +177,12 @@
 				return Math.floor(this.actual_php_fpm_max_children / 5) * 5;
 			},
 			get php_fpm_start_servers() {
-				return Math.floor(this.php_fpm_max_children / 2 / 5) * 5;
+				// `max` ensures that it's >= php_fpm_min_spare_servers, 
+				// `min` ensures that it's <= php_fpm_max_spare_servers
+				return Math.max(
+					Math.min(Math.floor(this.php_fpm_max_children / 2 / 5) * 5, this.php_fpm_max_spare_servers),
+					this.php_fpm_min_spare_servers
+				);
 			},
 			get php_fpm_min_spare_servers() {
 				return Math.floor((this.php_fpm_max_children - this.php_fpm_start_servers) / 3 / 5) * 5;
