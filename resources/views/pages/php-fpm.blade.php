@@ -176,19 +176,22 @@
 			get php_fpm_max_children() {
 				return Math.floor(this.actual_php_fpm_max_children / 5) * 5;
 			},
+			get actual_php_fpm_start_servers() {
+				return Math.floor(this.php_fpm_max_children / 2 / 5) * 5;
+			},
 			get php_fpm_start_servers() {
 				// `max` ensures that it's >= php_fpm_min_spare_servers, 
 				// `min` ensures that it's <= php_fpm_max_spare_servers
 				return Math.max(
-					Math.min(Math.floor(this.php_fpm_max_children / 2 / 5) * 5, this.php_fpm_max_spare_servers),
+					Math.min(this.actual_php_fpm_start_servers, this.php_fpm_max_spare_servers),
 					this.php_fpm_min_spare_servers
 				);
 			},
 			get php_fpm_min_spare_servers() {
-				return Math.floor((this.php_fpm_max_children - this.php_fpm_start_servers) / 3 / 5) * 5;
+				return Math.floor((this.php_fpm_max_children - this.actual_php_fpm_start_servers) / 3 / 5) * 5;
 			},
 			get php_fpm_max_spare_servers() {
-				return Math.floor((this.php_fpm_max_children - this.php_fpm_start_servers) / 1.25 / 5) * 5;
+				return Math.floor((this.php_fpm_max_children - this.actual_php_fpm_start_servers) / 1.25 / 5) * 5;
 			},
 		}));
 	});
