@@ -112,7 +112,7 @@
 						Countdown to One Billion
 					</a>
 					@if(Cache::has('downloads:total') && $download_total = Cache::get('downloads:total'))
-						(spoiler alert—I’m at {{ number_format($download_total) }}
+						(spoiler alert—I’m at {{ number_format($download_total) }})
 					@endif
 				</li>
 			</ul>
