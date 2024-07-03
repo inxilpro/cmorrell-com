@@ -26,6 +26,8 @@ class Downloads
 		$this->packagist();
 		$this->npm();
 		
+		Cache::forever('downloads:total', $this->total);
+		
 		return $this;
 	}
 	

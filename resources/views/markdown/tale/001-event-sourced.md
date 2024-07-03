@@ -1,10 +1,10 @@
 ### Event Sourced
 
-In an event sourced Laravel app, we need to set up quite a few more things. 
-First, let's create some events:
+In an event sourced Laravel app, we'll need to create a couple events:
 
 ```php
-class PageCreated extends ShouldBeStored
+#[AppliesToState(PageState::class)] // ignore this for now
+class PageCreated extends Event
 {
 	public function __construct(
 	    public string $slug,
@@ -13,72 +13,37 @@ class PageCreated extends ShouldBeStored
 	    public int $author_id,
 	    public string $ip,
 	    public string $ua,
+	    public ?int $page_id = null,
 	) {
 	}
-}
-
-class PageUpdated extends ShouldBeStored
-{
-	// Same as PageCreated for simplicity's sake
-}
-```
-
-Next, we’ll create our aggregate root, which serves as the gateway between
-our application and our events.
-
-```php
-class PageAggregateRoot extends AggregateRoot
-{
-	public function create(string $slug, string $title, string $body): self
-	{
-		return $this->recordThat(new PageCreated(
-		    slug: $slug,
-            title: $title,
-            body: $body,
-            author_id: Auth::id(),
-            ip: request()->ip(),
-            ua: request()->userAgent(),
-		));
-	}
 	
-	public function update(PageRequest $request): self
-	{
-	    // Basically the same as 'create' for now
-	}
-}
-```
-
-Next, we'll create a projector, which will react to our events and create
-the appropriate database models.
-
-```php
-class PageProjector extends Projector
-{
-	public function onPageCreated(PageCreated $event)
-	{
-	     Page::create([
-	        'uuid' => $event->aggregateRootUuid(),
-            'slug' => $event->slug,
-            'title' => $event->title,
-            'body' => $event->body,
-            'author_id' => $event->author_id,
+	public function handle() {
+        return Page::create([
+	        'id' => $this->page_id,
+            'slug' => $this->slug,
+            'title' => $this->title,
+            'body' => $this->body,
+            'author_id' => $this->author_id,
         ]);
-	}
+    }
+}
+
+class PageUpdated extends Event
+{
+	// Constructor omitted for simplicity's sake
 	
-	public function onPageUpdated(PageUpdated $event)
-	{
-	     Page::query()
-	        ->firstWhere(['uuid' => $event->aggregateRootUuid()])
+	public function handle() {
+        return Page::find($this->page_id)
 	        ->update([
-                'slug' => $event->slug,
-                'title' => $event->title,
-                'body' => $event->body,
+                'slug' => $this->slug,
+                'title' => $this->title,
+                'body' => $this->body,
             ]);
-	}
+    }
 }
 ```
 
-And finally, we'll create our controller.
+And we'll also need a controller:
 
 ```php
 class PageController
@@ -87,18 +52,28 @@ class PageController
 
     public function store(PageRequest $request)
     {
-        $uuid = Str::uuid();
+        $page = PageCreated::commit(
+            slug: $request->input('slug'),
+            title: $request->input('title'),
+            body: $request->input('body'),
+            author_id: Auth::id(),
+            ip: $request->ip(),
+            ua: $request->userAgent(),
+        );
         
-        PageAggregateRoot::retrieve($uuid)
-            ->create($request->input('slug'), $request->input('title'), $request->input('body'));
-        
-        return to_route('pages.edit', Page::firstWhere(['uuid' => $uuid]));
+        return to_route('pages.edit', $page);
     }
     
     public function update(PageRequest $request, Page $page)
     {
-        PageAggregateRoot::retrieve($page->uuid)
-            ->update($request->input('slug'), $request->input('title'), $request->input('body'));
+        PageUpdated::fire(
+            slug: $request->input('slug'),
+            title: $request->input('title'),
+            body: $request->input('body'),
+            author_id: Auth::id(),
+            ip: $request->ip(),
+            ua: $request->userAgent(),
+        );
         
         return to_route('pages.edit', $page);
     }

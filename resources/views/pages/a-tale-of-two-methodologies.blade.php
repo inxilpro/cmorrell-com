@@ -31,16 +31,15 @@
 				## Whew!
 				
 				On face value, the traditional approach looks much simpler. That's because 
-				it is! Event sourcing definitely comes with more boilerplate and works best 
-				when you follow the [CQRS pattern](https://martinfowler.com/bliki/CQRS.html) 
+				it is! Event sourcing can have more boilerplate (although Verbs helps mitigate that!) 
+				and works best when you follow the [CQRS pattern](https://martinfowler.com/bliki/CQRS.html) 
 				of separating reads and writes.
 				
 				In our traditional approach, we just create or update a model when a new request
-				comes in. In contrast, our event sourcing approach:
+				comes in. In contrast, our event sourcing approach needs 
 				
 				1. Dispatches an event when a request comes in
-				2. Reacts to that event in our projector to actually write to the database
-				3. Fetches the resulting model from the database
+				2. Reacts to that event in our `handle` method to actually write to the database
 				
 				Separating reads from writes has its advantages, but we’ve definitely taken
 				~20 lines of code and split them across ~90 lines and 5 files.

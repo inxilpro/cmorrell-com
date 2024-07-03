@@ -105,12 +105,15 @@
 				<li class="my-2">
 					<a href="{{ url('/php-fpm') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Tuning dynamic php-fpm settings
-					</a> (published in early 2020)
+					</a> (last updated mid 2024)
 				</li>
 				<li class="my-2">
 					<a href="{{ url('/one-billion') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Countdown to One Billion
 					</a>
+					@if(Cache::has('downloads:total') && $download_total = Cache::get('downloads:total'))
+						(spoiler alert—I’m at {{ number_format($download_total) }}
+					@endif
 				</li>
 			</ul>
 		

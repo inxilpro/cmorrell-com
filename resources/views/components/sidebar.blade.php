@@ -1,8 +1,8 @@
 <div class="my-12 lg:pl-12 lg:-mr-4 lg:pr-4 lg:-my-4 lg:py-8 lg:opacity-50 hover:opacity-100 transition-opacity lg:h-screen lg:sticky lg:top-0 overflow-y-auto overflow-x-hidden text-base leading-none shadow-overflow-y">
 	
-	<a 
-		href="https://overengineered.fm/" 
-		target="_blank" 
+	<a
+		href="https://overengineered.fm/"
+		target="_blank"
 		class="block mb-6 mx-auto group text-center"
 		style="max-width: 250px"
 	>
@@ -15,7 +15,21 @@
 		</div>
 		
 		<div class="p-4 text-gray-600 tracking-wider font-bold font-slant">
-			Check out our new podcast, <span class="group-hover:underline group-hover:text-blue-800">Over Engineered</span>
+			Check out my podcast, <span class="group-hover:underline group-hover:text-blue-800">Over Engineered</span>
+		</div>
+	</a>
+	
+	<a
+		href="https://phpxphilly.com"
+		target="_blank"
+		class="block mb-6 mx-auto group text-center"
+	>
+		<div class="flex bg-black text-white items-center justify-center rounded font-mono font-semibold py-6">
+			PHP×Philly
+		</div>
+		
+		<div class="p-4 text-gray-600 tracking-wider font-bold font-slant">
+			Near Philadelphia? Come to the <span class="group-hover:underline group-hover:text-blue-800">next meetup</span>!
 		</div>
 	</a>
 	

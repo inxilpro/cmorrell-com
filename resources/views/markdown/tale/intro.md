@@ -25,8 +25,8 @@ So let's set the stage:
     workflow to your CMS. 
 
 Given this timeline, let's look at how we might implement these requirements in a traditional
-Laravel application and one that uses Event Sourcing (all examples will use the
-[Spatie event sourcing package](https://spatie.be/index.php/docs/laravel-event-sourcing),
+Laravel application and one that uses Event Sourcing (all examples will use
+[Verbs](https://verbs.thunk.dev/),
 but the general principles are the same across any implementation).
 
 **Note:** we’ll be glossing over a bunch of implementation details
