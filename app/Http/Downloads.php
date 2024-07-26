@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Packagist\Api\Client;
@@ -100,7 +101,9 @@ class Downloads
 			'internachi',
 		];
 		
-		$package_names = collect();
+		$packages = ['hirethunk/verbs'];
+		
+		$package_names = collect($packages);
 		
 		foreach ($vendors as $vendor) {
 			$this->log("Getting all packagist packages for vendor '{$vendor}'...");
