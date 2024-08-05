@@ -55,7 +55,25 @@
 	</x-markdown>
 	
 	<x-markdown class="mt-12">
-		## Second: “It's all nerds”
+		## Second: “I don’t want to commit to just one part of my identity”
+		
+		Some folks have the impression that if you join something like [phpc.social](https://phpc.social/about)
+		you are locked in to only talking about PHP. That's not true at all. There **are** instances that are
+		more focussed on a shared interest. If that's what you're into, then great! If not, you can either:
+		
+		1. Join a more general-purpose instance (like those listed above)
+		2. Join any instance you please and **talk about whatever you like** because no one on Mastodon
+		   expects you to exclusively talk about what your instance is named after
+		
+		Do you like the sound of `you@rtsn.dev`? Great, [join rtsn.dev](https://rtsn.dev/about)! Prefer
+		something more local, like `you@masto.nyc`? Yep, [that's an option, too](https://masto.nyc/about).
+		
+		If, in the end, you're not happy with the instance you joined, you can always move and bring all
+		your followers along with you.
+	</x-markdown>
+	
+	<x-markdown class="mt-12">
+		## Third: “It's all nerds”
 		
 		So was Twitter in 2008 when I joined. Early adopters drive where everyone else goes. If we, as technology
 		enthusiasts, choose Mastodon, others will eventually follow.
@@ -197,7 +215,7 @@
 	</div>
 	
 	<x-markdown class="mt-12">
-		## Third: I don’t like the app
+		## Fourth: I don’t like the app
 		
 		The default mastodon web client is kinda *meh* for sure. I never use it. There are **tons of amazing
 		mastodon clients out there** for you to choose from. Here are a few options:
@@ -223,7 +241,7 @@
 	</x-markdown>
 	
 	<x-markdown class="mt-12">
-		## Fourth: I rely on Twitter for leads/business/etc
+		## Fifth: I rely on Twitter for leads/business/etc
 		
 		![“Twitter FYP is getting more and more violently racist. Good thing I don’t rely on my network here to make a living.” – Daniel Coulbourne]({{ asset('images/tweets/twitter-fyp-racist.png') }})
 		
@@ -240,7 +258,7 @@
 	</x-markdown>
 	
 	<x-markdown class="mt-12">
-		## Fifth: Something else!
+		## Sixth: Something else!
 		
 		Have another reason to avoid Mastodon? You can [let me know on Twitter](https://twitter.com/inxilpro)
 		and I'll add it to this list.
