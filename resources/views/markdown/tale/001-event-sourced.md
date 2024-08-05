@@ -43,39 +43,7 @@ class PageUpdated extends Event
 }
 ```
 
-And we'll also need a controller:
-
-```php
-class PageController
-{
-    // ... standard CRUD endpoints and views ...
-
-    public function store(PageRequest $request)
-    {
-        $page = PageCreated::commit(
-            slug: $request->input('slug'),
-            title: $request->input('title'),
-            body: $request->input('body'),
-            author_id: Auth::id(),
-            ip: $request->ip(),
-            ua: $request->userAgent(),
-        );
-        
-        return to_route('pages.edit', $page);
-    }
-    
-    public function update(PageRequest $request, Page $page)
-    {
-        PageUpdated::fire(
-            slug: $request->input('slug'),
-            title: $request->input('title'),
-            body: $request->input('body'),
-            author_id: Auth::id(),
-            ip: $request->ip(),
-            ua: $request->userAgent(),
-        );
-        
-        return to_route('pages.edit', $page);
-    }
-}
-```
+#### …
+For brevity's sake, we'll leave out the controller for now. In the event-sourced code, all
+it would do is fire the `PageCreated` and `PageUpdated` events rather than creating the 
+`Page` models directly.

@@ -1,5 +1,22 @@
 ### Event Sourced
 
+In our event-sourced version, we'll start by adding two new events:
+
+```php
+class DraftCreated extends Event
+{
+	// Same as PageCreated, basically
+}
+
+class DraftApproved extends Event
+{
+	public function __construct(
+	    public int $draft_id,
+	    public int $approver_id,
+	) {}
+}
+```
+
 ```php
 class PageAggregateRoot extends AggregateRoot
 {

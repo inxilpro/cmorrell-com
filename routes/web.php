@@ -8,6 +8,7 @@ Route::view('/laravel-relationships', 'pages.laravel-relationships');
 Route::view('/laravel-typehint-directive', 'pages.laravel-typehint-directive');
 Route::view('/a-tale-of-two-methodologies', 'pages.a-tale-of-two-methodologies');
 Route::view('/one-billion', 'pages.one-billion');
+Route::view('/mastodon', 'pages.mastodon');
 
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');

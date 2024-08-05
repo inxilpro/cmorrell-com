@@ -1,22 +1,21 @@
 ### Event Sourced
 
-In our event sourced application, we can just add a new projector to save
-page history data:
+In our event sourced application, we can just add a little more code to
+store our audits:
 
 ```php
-class PageHistoryProjector extends Projector
+class PageUpdated extends Event
 {
-	public function onPageUpdated(PageUpdated $event)
-	{
-	     Page::query()
-	        ->firstWhere(['uuid' => $event->aggregateRootUuid()])
-	        ->history()
-	        ->create([
-	            'user_id' => $event->author_id,
+	public function handle() {
+	    // ...
+	    
+        $page->history()
+            ->create([
+                'user_id' => $this->author_id,
                 'snapshot' => [
-                    'slug' => $event->slug,
-                    'title' => $event->title,
-                    'body' => $event->body,
+                    'slug' => $this->slug,
+                    'title' => $this->title,
+                    'body' => $this->body,
                 ],
             ]);
 	}
@@ -28,9 +27,11 @@ and actually build up that table with historical data from all our existing
 `PageUpdated` events:
 
 ```shell
-php artisan event-sourcing:replay App\\Projectors\\PageHistoryProjector
+mysql -e "truncate table pages"
+php artisan verbs:replay
 ```
 
-Once that command runs, we'll have full audit history from the beginning of
-our app. In our imaginary scenario, we'd actually be able to point to Aaron
-as the culprit, and get a big fat raise!
+Because our `Page` models are 100% derived from our events, we can just
+clear out that table and replay our events. Not only do we have an audit
+history moving forward, but we can also point to Aaron as the culprit, 
+and get a big fat raise!

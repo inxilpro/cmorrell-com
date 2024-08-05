@@ -12,6 +12,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
@@ -40,7 +41,13 @@ class Markdown extends Component
 				default => throw new InvalidArgumentException('No markdown provided!'),
 			};
 			
-			return new HtmlString($converter->convert($src));
+			$html = $converter->convert($src);
+			
+			if (count($data['attributes']->getAttributes())) {
+				$html = "<div {$data['attributes']}>{$html}</div>";
+			}
+			
+			return new HtmlString($html);
 		};
 	}
 	
@@ -87,6 +94,9 @@ class Markdown extends Component
 				],
 				Link::class => [
 					'class' => 'text-blue-800 underline hover:text-blue-500',
+				],
+				Image::class => [
+					'class' => 'rounded-lg my-8',
 				],
 			],
 		];
