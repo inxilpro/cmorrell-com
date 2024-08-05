@@ -136,7 +136,8 @@
 		## And plenty of the nerds you know and love!
 		
 		But there are also plenty of wonderful nerds on mastodon! Some major personalities like
-		John Gruber and Marco Arment have moved entirely. Others still cross-post.
+		John Gruber and Marco Arment have moved entirely. Others still cross-post. Here are a handful
+		that I used to follow/see on Twitter:
 		
 		- [Julia Evans](https://social.jvns.ca/@b0rk)
 		- [Anil Dash](https://me.dm/@anildash)
@@ -166,7 +167,7 @@
 		- [Nuno Maduro](https://mastodon.social/@nunomaduro) (Laravel)
 		- [Dries Vints](https://phpc.social/@driesvints) (Laravel)
 		- [Freek Murze](https://phpc.social/@freekmurze) (Spatie)
-		- [Justin Jackson](https://mastodon.social/@mijustin)
+		- [Justin Jackson](https://mastodon.social/@mijustin) (Transistor)
 		- [Joel Clermont](https://phpc.social/@jclermont) (No Compromises)
 		- [Stephen Rees-Carter](https://phpc.social/@valorin) (Laravel Security)
 		- [TJ Miller](https://phpc.social/@tjmiller) (Generative AI for Laravel)
@@ -215,7 +216,7 @@
 	</div>
 	
 	<x-markdown class="mt-12">
-		## Fourth: I don’t like the app
+		## Fourth: “I don’t like the app”
 		
 		The default mastodon web client is kinda *meh* for sure. I never use it. There are **tons of amazing
 		mastodon clients out there** for you to choose from. Here are a few options:
@@ -241,7 +242,7 @@
 	</x-markdown>
 	
 	<x-markdown class="mt-12">
-		## Fifth: I rely on Twitter for leads/business/etc
+		## Fifth: “I rely on Twitter for leads/business/etc”
 		
 		![“Twitter FYP is getting more and more violently racist. Good thing I don’t rely on my network here to make a living.” – Daniel Coulbourne]({{ asset('images/tweets/twitter-fyp-racist.png') }})
 		
@@ -258,7 +259,7 @@
 	</x-markdown>
 	
 	<x-markdown class="mt-12">
-		## Sixth: Something else!
+		## Sixth: “Something else!”
 		
 		Have another reason to avoid Mastodon? You can [let me know on Twitter](https://twitter.com/inxilpro)
 		and I'll add it to this list.
