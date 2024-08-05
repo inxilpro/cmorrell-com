@@ -1,7 +1,7 @@
 <x-layout title="A case for mastodon - Chris Morrell" og="mastodon">
 	
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
-		A case for mastodon
+		A case for Mastodon
 	</h1>
 	
 	<div class="bg-yellow-50 border-yellow-300 rounded p-4 text-yellow-900 font-semibold my-6">
