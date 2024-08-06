@@ -103,6 +103,11 @@
 			
 			<ul class="list-disc ml-6">
 				<li class="my-2">
+					<a href="{{ url('/mastodon') }}" class="text-gray-600 font-bold underline hover:text-black">
+						A case for mastodon
+					</a>
+				</li>
+				<li class="my-2">
 					<a href="{{ url('/php-fpm') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Tuning dynamic php-fpm settings
 					</a> (last updated mid 2024)
