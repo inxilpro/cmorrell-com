@@ -1,9 +1,15 @@
+<?php
+$formatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
+$nth = 1;
+?>
+
 <x-layout title="A case for mastodon - Chris Morrell" og="mastodon">
 	
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		A case for Mastodon
 	</h1>
 	
+	{{--
 	<div class="bg-yellow-50 border-yellow-300 rounded p-4 text-yellow-900 font-semibold my-6">
 		<div class="flex items-start justify-start gap-2">
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 shrink-0 mt-1">
@@ -19,6 +25,50 @@
 			</div>
 		</div>
 	</div>
+	--}}
+	
+	<div class="sm:float-right sm:max-w-xs bg-gray-700 text-white p-4 sm:ml-4 mb-4 sm:-mr-4 rounded">
+		<h2 class="font-semibold opacity-80">
+			On this page:
+		</h2>
+		<ol>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#federation-schmederation" class="indent-2 -ml-2 hover:underline">
+					I don't care about federation
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#not-all-my-identity" class="indent-2 -ml-2 hover:underline">
+					I don’t want to commit to just one part of my identity
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#its-all-nerds" class="indent-2 -ml-2 hover:underline">
+					It's all nerds
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#dont-like-app" class="indent-2 -ml-2 hover:underline">
+					I don't like the app
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#just-use-threads" class="indent-2 -ml-2 hover:underline">
+					What about Threads?
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#twitter-for-leads" class="indent-2 -ml-2 hover:underline">
+					I rely on Twitter for leads/business/etc
+				</a>
+			</li>
+			<li class="mt-3 ml-2 leading-none">
+				<a href="#something-else" class="indent-2 -ml-2 hover:underline">
+					Something else!
+				</a>
+			</li>
+		</ol>
+	</div>
 	
 	<x-markdown class="mt-8">
 		So… Twitter is not good anymore. I think [many](https://twitter.com/DCoulbourne/status/1820222653170659777)
@@ -27,9 +77,6 @@
 		Whether it's the decline in site performance, the low-quality ads, the increase of bots and trolls,
 		the overt politics of Elon Musk, or one of the dozens of other reasons people are abandoning the
 		platform, folks are looking for an out.
-		
-		![“What's the best alternative for Twitter right now? I'm kinda getting fed up with the new algorithm and I really do just want to up and leave, but I love the dev community here. Is there
-		anything similar/” – Sam Carré]({{ asset('images/tweets/looking-for-twitter-alternative.png') }})
 		
 		Right now, it feels like there are a handful of options:
 		
@@ -40,11 +87,24 @@
 		
 		I’ve seen a **bunch of pushback against Mastodon** as an option, so I want to take the time to address some
 		of the issues that folks have put out there.
+		
+		![“What's the best alternative for Twitter right now? I'm kinda getting fed up with the new algorithm and I really do just want to up and leave, but I love the dev community here. Is there anything similar/” – Sam Carré]({{ asset('images/tweets/looking-for-twitter-alternative.png') }})
 	</x-markdown>
 	
-	<x-markdown class="mt-12">
-		## First: “I don't care about federation”
-		
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="federation-schmederation"
+			href="#federation-schmederation"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“I don't care about federation”
+	</h2>
+	
+	<x-markdown>
 		No problem. Just don’t think about it. You can [join mastodon.social](https://mastodon.social/auth/sign_up)
 		and basically treat it like Twitter. There are about 2 million other people active on that instance alone.
 		It's easy and just works.
@@ -54,9 +114,20 @@
 		for technology-inclined folks.
 	</x-markdown>
 	
-	<x-markdown class="mt-12">
-		## Second: “I don’t want to commit to just one part of my identity”
-		
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="not-all-my-identity"
+			href="#not-all-my-identity"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“I don’t want to commit to just one part of my identity”
+	</h2>
+	
+	<x-markdown>
 		Some folks have the impression that if you join something like [phpc.social](https://phpc.social/about)
 		you are locked in to only talking about PHP. That's not true at all. There **are** instances that are
 		more focussed on a shared interest. If that's what you're into, then great! If not, you can either:
@@ -72,9 +143,20 @@
 		your followers along with you.
 	</x-markdown>
 	
-	<x-markdown class="mt-12">
-		## Third: “It's all nerds”
-		
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="its-all-nerds"
+			href="#its-all-nerds"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“It's all nerds”
+	</h2>
+	
+	<x-markdown>
 		So was Twitter in 2008 when I joined. Early adopters drive where everyone else goes. If we, as technology
 		enthusiasts, choose Mastodon, others will eventually follow.
 		
@@ -215,9 +297,20 @@
 		</div>
 	</div>
 	
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="dont-like-app"
+			href="#dont-like-app"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“I don’t like the app”
+	</h2>
+	
 	<x-markdown class="mt-12">
-		## Fourth: “I don’t like the app”
-		
 		The default mastodon web client is kinda *meh* for sure. I never use it. There are **tons of amazing
 		mastodon clients out there** for you to choose from. Here are a few options:
 		
@@ -241,9 +334,45 @@
 		by an amazing, small team of developers who have been making social media clients for years.
 	</x-markdown>
 	
-	<x-markdown class="mt-12">
-		## Fifth: “I rely on Twitter for leads/business/etc”
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="just-use-threads"
+			href="#just-use-threads"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“What about Threads?”
+	</h2>
+	
+	<x-markdown>
+		[Some folks](https://twitter.com/ianlandsman/status/1819738608376455272) are advocating for moving
+		to Threads. If that seems like a better option for you, go for it. Threads is already partially compatible
+		with Mastodon, which means that if you [enable federation in your Threads settings](https://lifehacker.com/tech/how-to-enable-fediverse-sharing-on-threads),
+		people on Mastodon can see your posts. Meta currently claims that they're going to expand support, so
+		there's an OK chance that in the future, Threads accounts will be able to follow Mastodon accounts
+		and vice versa.
 		
+		For those who don't trust Facebook a whole lot more than Elon Musk, Threads is maybe not a great choice.
+		In that case, Mastodon is a good alternative that hopefully will eventually be able to bridge that gap!
+	</x-markdown>
+	
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="twitter-for-leads"
+			href="#twitter-for-leads"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“I rely on Twitter for leads/business/etc”
+	</h2>
+	
+	<x-markdown>
 		![“Twitter FYP is getting more and more violently racist. Good thing I don’t rely on my network here to make a living.” – Daniel Coulbourne]({{ asset('images/tweets/twitter-fyp-racist.png') }})
 		
 		Yeah, that sucks. You probably have to continue to cross-post to Twitter. At least for a while
@@ -258,9 +387,20 @@
 		- No algorithmic timeline means you don't have to play so many games to get exposure
 	</x-markdown>
 	
+	<h2
+		class="relative text-purple-800 text-2xl text-center font-bold font-slant my-4 mt-12 sm:text-left lg:text-3xl"
+	>
+		<a
+			id="something-else"
+			href="#something-else"
+			class="scroll-mt-8 xl:absolute xl:transform xl:-translate-x-full xl:-left-1 opacity-50"
+		>
+			{{ $formatter->format($nth++) }}:
+		</a>
+		“Something else!”
+	</h2>
+	
 	<x-markdown class="mt-12">
-		## Sixth: “Something else!”
-		
 		Have another reason to avoid Mastodon? You can [let me know on Twitter](https://twitter.com/inxilpro)
 		and I'll add it to this list.
 	</x-markdown>

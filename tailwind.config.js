@@ -9,6 +9,7 @@ module.exports = {
 		screens: {
 			'sm': '640px',
 			'lg': '960px',
+			'xl': '1080px',
 		},
 	},
 	variants: {
