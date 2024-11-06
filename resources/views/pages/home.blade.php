@@ -43,34 +43,35 @@
 			<br />
 			
 			<p class="text-xl leading-normal my-4">
-				And as much as I dislike the way that Twitter enables harassment and bigotry
-				on the internet, I've carved out my own safe haven of folks who treat each other
-				with respect and talk about interesting things online:
+				I've been spending much of my social time on Bluesky these days. Right now, it feels like
+				a great spot for the tech community. Come join us!
 			</p>
 			
 			<div class="flex my-8 p-4 border rounded-lg items-center">
 				<a class="mr-4 no-underline opacity-75 hover:opacity-100"
-				   href="https://twitter.com/inxilpro"
+				   href="https://bsky.app/profile/cmorrell.com"
 				   target="_blank"
 				   rel="noopener noreferrer"
-				   title="Chris Morrell on Twitter"
+				   title="Chris Morrell on Bluesky"
 				>
-					<svg class="h-8 lg:h-12 w-8 lg:w-12 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title>
-						<path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+					<svg class="h-8 lg:h-12 w-8 lg:w-12 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+						<path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z" />
 					</svg>
 				</a>
 				<a class="font-slant text-xl lg:text-3xl leading-none opacity-75 hover:opacity-100"
-				   href="https://twitter.com/inxilpro"
+				   href="https://bsky.app/profile/cmorrell.com"
+				   rel="noopener noreferrer"
 				   target="_blank"
-				   rel="noopener noreferrer">
-					Follow me on Twitter
+				>
+					Follow me on Bluesky
+					<span class="text-gray-500 text-lg lg:text-xl">@cmorrell.com</span>
 				</a>
 			</div>
 			
 			<br />
 			
 			<p class="text-xl leading-normal my-4">
-				Also, I'm trying to carve out a similar space on Mastodon. Please come on over with me!
+				I'm also on Mastodon, if that's your jam:
 			</p>
 			
 			<div class="flex my-8 p-4 border rounded-lg items-center">
@@ -91,6 +92,33 @@
 				>
 					Follow me on Mastodon
 					<span class="text-gray-500 text-lg lg:text-xl">@chris@rtsn.dev</span>
+				</a>
+			</div>
+			
+			<br />
+			
+			<p class="text-xl leading-normal my-4">
+				And while I don't spend very much time over there any more, if Twitter is
+				your thing, you can find me there, too:
+			</p>
+			
+			<div class="flex my-8 p-4 border rounded-lg items-center opacity-65">
+				<a class="mr-4 no-underline opacity-75 hover:opacity-100"
+				   href="https://twitter.com/inxilpro"
+				   target="_blank"
+				   rel="noopener noreferrer"
+				   title="Chris Morrell on Twitter"
+				>
+					<svg class="h-4 w-4 lg:h-8 lg:w-8 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title>
+						<path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+					</svg>
+				</a>
+				<a class="font-slant text-lg lg:text-2xl leading-none opacity-75 hover:opacity-100"
+				   href="https://twitter.com/inxilpro"
+				   target="_blank"
+				   rel="noopener noreferrer">
+					Follow me on Twitter
+					<span class="text-gray-500 text-lg lg:text-xl">@inxilpro</span>
 				</a>
 			</div>
 			
