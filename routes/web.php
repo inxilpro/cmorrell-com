@@ -11,6 +11,7 @@ Route::view('/one-billion', 'pages.one-billion');
 Route::view('/mastodon', 'pages.mastodon');
 Route::view('/models-in-verbs', 'pages.models-in-verbs');
 Route::view('/verbs-errors', 'pages.verbs-errors');
+Route::view('/joey-t-calculator', 'pages.joey-t-calculator');
 
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');
