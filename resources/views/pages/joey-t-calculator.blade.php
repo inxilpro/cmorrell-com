@@ -67,7 +67,7 @@
 			feet: 5,
 			inches: 11.75,
 			get height() {
-				return ((this.feet * 12) + this.inches) / (6 * 12);
+				return (((this.feet * 12) + this.inches) / (6 * 12)).toFixed(6);
 			}
 		}));
 	});
