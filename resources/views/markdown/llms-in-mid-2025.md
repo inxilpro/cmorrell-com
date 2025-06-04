@@ -99,7 +99,7 @@ Right now, I'm using a bunch of different language models day-to-day:
 
 ## My heuristic
 
-In my experience, LLMS exel at producing code that is unremarkable. But programming needs lots of
+In my experience, LLMS excel at producing code that is unremarkable. But programming needs lots of
 unremarkable code: controllers, request objects, config files, typescript interfaces, github 
 actions, docker files, etc, etc.
 
@@ -112,9 +112,9 @@ umbrella of “artificial intelligence” *will* be good at that. Not today.
 
 A couple of months ago, I sketched this graph (while I was on vacation), and I think it still really holds up:
 
-![Chart of AI utility, showing that more wrote code is easiest for AI to deliver value](/images/ai-quadrants.jpg)
+![Chart of AI utility, showing that more rote code is easiest for AI to deliver value](/images/ai-quadrants.jpg)
 
-The higher up a task is on the vertical axis (unique vs. wrote), the more likely an agent
+The higher up a task is on the vertical axis (unique vs. rote), the more likely an agent
 can help write the code. The further along on the horizonal axis (familiar vs. foreign), the more
 likely LLMs are to help you learn/understand something new (both agents or just LLM chatbots).
 
