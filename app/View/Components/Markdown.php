@@ -63,8 +63,8 @@ class Markdown extends Component
 				Heading::class => [
 					'class' => static fn(Heading $node) => match ($node->getLevel()) {
 						1 => 'text-5xl text-center font-bold font-slant text-gray-800 sm:text-left lg:text-6xl',
-						2 => 'text-2xl text-center font-bold font-slant my-4 sm:text-left lg:text-3xl',
-						3 => 'text-xl lg:text-3xl font-bold font-slant mt-6 mb-2 text-gray-600',
+						2 => 'text-2xl text-center font-bold font-slant my-4 mt-8 sm:text-left lg:text-3xl',
+						3 => 'text-xl lg:text-3xl font-bold font-slant mt-8 mb-2 text-gray-600',
 						default => 'text-xl lg:text-2xl font-bold mt-6 mb-1',
 					},
 				],
@@ -72,7 +72,7 @@ class Markdown extends Component
 					'class' => 'text-lg lg:text-xl leading-normal mb-4',
 				],
 				BlockQuote::class => [
-					'class' => 'ml-6 pl-4 border-l-4 border-gray-100 italic text-gray-600 text-lg lg:text-xl leading-normal mb-4',
+					'class' => 'ml-6 pl-4 border-l-4 border-gray-100 font-serif italic text-gray-600 text-lg lg:text-xl leading-normal mb-4',
 				],
 				IndentedCode::class => [
 					'class' => 'block w-full overflow-x-auto leading-normal mb-4',
