@@ -131,6 +131,16 @@
 			
 			<ul class="list-disc ml-6">
 				<li class="my-2">
+					Laracon 2025: 
+					<a href="https://github.com/inxilpro/laracon-2025" class="text-gray-600 font-bold underline hover:text-black">
+						Code
+					</a>
+					<span> + </span>
+					<a href="https://www.youtube.com/watch?v=_eMBogMlShs" class="text-gray-600 font-bold underline hover:text-black">
+						YouTube
+					</a>
+				</li>
+				<li class="my-2">
 					<a href="{{ url('/mastodon') }}" class="text-gray-600 font-bold underline hover:text-black">
 						A case for mastodon
 					</a>
