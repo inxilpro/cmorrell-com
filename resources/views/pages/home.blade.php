@@ -139,6 +139,10 @@
 					<a href="https://www.youtube.com/watch?v=_eMBogMlShs" class="text-gray-600 font-bold underline hover:text-black">
 						YouTube
 					</a>
+					<span> + </span>
+					<a href="{{ asset('download/cmorrell-intellij-theme.jar') }}" class="text-gray-600 font-bold underline hover:text-black">
+						(PhpStorm Theme)
+					</a>
 				</li>
 				<li class="my-2">
 					<a href="{{ url('/mastodon') }}" class="text-gray-600 font-bold underline hover:text-black">
