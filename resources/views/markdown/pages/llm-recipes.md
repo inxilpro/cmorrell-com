@@ -8,7 +8,7 @@ There are a lot of things that LLMs are still **not good** for (making decisions
 
 ## Recipe: Travel Profile
 
-I was recently working with a travel agent and was having trouble articulating exactly what I wanted. After a while of getting nowhere, I turned to Claude and asked:
+I was recently working with a travel agent (_believe it or not, travel agents are a great, relatively affordable option in 2025_) and was having trouble articulating exactly what I wanted. After a while of getting nowhere, I turned to Claude and asked:
 
 > I would like to define a travel profile that summarizes my hotel, restaurant, and activity preferences.
 > Please ask me clarifying questions to establish the profile. Here are a few things to get started:
