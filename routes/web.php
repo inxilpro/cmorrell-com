@@ -1,20 +1,23 @@
 <?php
 
+use App\Support\FinderCollection;
+use Illuminate\Routing\Route as RouteInst;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Finder\SplFileInfo;
 
 Route::view('/', 'pages.home');
-Route::view('/php-fpm', 'pages.php-fpm');
-Route::view('/laravel-relationships', 'pages.laravel-relationships');
-Route::view('/laravel-typehint-directive', 'pages.laravel-typehint-directive');
-Route::view('/a-tale-of-two-methodologies', 'pages.a-tale-of-two-methodologies');
-Route::view('/one-billion', 'pages.one-billion');
-Route::view('/mastodon', 'pages.mastodon');
-Route::view('/models-in-verbs', 'pages.models-in-verbs');
-Route::view('/verbs-errors', 'pages.verbs-errors');
-Route::view('/llms-in-mid-2025', 'pages.llms-in-mid-2025');
-Route::view('/joey-t-calculator', 'pages.joey-t-calculator');
-Route::view('/bio', 'pages.bio');
-Route::view('/llm-recipes', 'pages.llm-recipes');
+
+$registered_views = collect(Route::getRoutes()->getRoutes())
+	->filter(fn(RouteInst $route) => data_get($route->action, 'controller') === '\Illuminate\Routing\ViewController')
+	->map(fn(RouteInst $route) => $route->defaults['view']);
+
+// Auto-register view/pages/*.blade.php
+FinderCollection::forFiles()
+	->in(resource_path('views/pages'))
+	->name('*.blade.php')
+	->map(fn(SplFileInfo $info) => $info->getBasename('.blade.php'))
+	->reject(fn($basename) => $registered_views->contains("pages.{$basename}"))
+	->each(fn($page) => Route::view("/{$page}", "pages.{$page}")->name("pages.{$page}"));
 
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');
