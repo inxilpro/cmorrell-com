@@ -2,6 +2,7 @@ module.exports = {
 	content: [
 		"./resources/**/*.blade.php",
 		"./app/View/Components/**/*.php",
+		"./app/Support/MarkdownConverter.php",
 		"./resources/**/*.js",
 	],
 	theme: {
