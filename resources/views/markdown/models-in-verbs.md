@@ -1,7 +1,7 @@
 The question around using Models and IDs in [Verbs](https://verbs.thunk.dev/) comes up a lot
 on the Verbs Discord, so I thought I'd put together a summary of my current thoughts.
 
-In Verbs, it's best to have a clear flow of data *from* events, *to* everywhere else. In an
+In Verbs, it's best to have a clear flow of data **from** events, **to** everywhere else. In an
 ideal world, your events are the single source of truth in your application (although this
 often can't be entirely the case because you may have data that predates adding Verbs to your project).
 
@@ -192,9 +192,8 @@ So, given the same `users` table above, we might add a new column:
 
 ```php
 Schema::table('users', function(Blueprint $table) {
-    // You can (and probably should) still use snowflakes here, but I'm going
-    // to use UUIDs just to show that snowflakes aren’t an absolute requirement
-    // for Verbs. We're going to leave the value nullable for now, since in this
+    // We can use UUIDs if we like. In fact, UUIDv7 is likely to become the recommended
+    // ID format in Verbs for 1.0. We're going to leave the value nullable for now, since in this
     // example we're going to assume that there's some data that pre-dates events.
     $table->uuid('universal_id')->nullable()->unique();
 });
@@ -252,7 +251,7 @@ class LegacyUserImported extends Event
 User::whereNull('universal_id')->each(function(User $user) {
     LegacyUserImported::fire(
         legacy_user_id: $user->getKey(),
-        universal_id: Str::uuid(), // Create a new unique ID for them
+        universal_id: Str::uuid7(), // Create a new unique ID for them
         name: $user->name,
         email: $user->email,
     );
@@ -287,7 +286,7 @@ UserRegistered::fire(
     // be the only ID that we care about inside our events. Our model
     // will still have an auto-incrementing ID, but we won't rely on that
     // anywhere that we're *writing* data.
-    universal_id: Str::uuid(),
+    universal_id: Str::uuid7(),
     name: $request->input('name'),
     email: $request->input('email'),
 );

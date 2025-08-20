@@ -131,6 +131,11 @@
 			
 			<ul class="list-disc ml-6">
 				<li class="my-2">
+					<a href="{{ url('/llm-recipes') }}" class="text-gray-600 font-bold underline hover:text-black">
+						LLM Recipes
+					</a>
+				</li>
+				<li class="my-2">
 					Laracon 2025: 
 					<a href="https://github.com/inxilpro/laracon-2025" class="text-gray-600 font-bold underline hover:text-black">
 						Code
@@ -142,6 +147,21 @@
 					<span> + </span>
 					<a href="{{ asset('download/cmorrell-intellij-theme.jar') }}" class="text-gray-600 font-bold underline hover:text-black">
 						(PhpStorm Theme)
+					</a>
+				</li>
+				<li class="my-2">
+					<a href="{{ url('/llms-in-mid-2025') }}" class="text-gray-600 font-bold underline hover:text-black">
+						LLMs in mid-2025
+					</a>
+				</li>
+				<li class="my-2">
+					<a href="{{ url('/models-in-verbs') }}" class="text-gray-600 font-bold underline hover:text-black">
+						Models in Verbs
+					</a>
+				</li>
+				<li class="my-2">
+					<a href="{{ url('/verbs-errors') }}" class="text-gray-600 font-bold underline hover:text-black">
+						Handling errors in Verbs
 					</a>
 				</li>
 				<li class="my-2">

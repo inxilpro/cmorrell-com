@@ -1,3 +1,5 @@
+# LLMs in mid-2025
+
 Let me start by saying I have no idea what I'm talking about when it comes to LLMs. The whole landscape
 is changing so fast, and information/sentiment is so mixed that it feels almost impossible to have
 a confident opinion.

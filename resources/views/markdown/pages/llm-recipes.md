@@ -1,3 +1,7 @@
+---
+date: 2025-08-20
+---
+
 # LLM Recipes
 
 There are a lot of things that LLMs are still **not good** for (making decisions is sure a big one). But I'm finding more and more use-cases that are helpful, and I've decided to document some of them here.

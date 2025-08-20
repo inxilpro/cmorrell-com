@@ -1,3 +1,5 @@
+# Verbs errors
+
 Error handling in Verbs can be tricky, because it's hard to know where
 exactly to put your validation logic. Do you want to put it in the event (and
 then lose some API niceties that Laravel provides), or put it somewhere **before**
