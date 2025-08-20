@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MarkdownController;
 use App\Support\FinderCollection;
 use App\Support\MarkdownConverter;
 use Illuminate\Routing\Route as RouteInst;
@@ -28,16 +29,9 @@ FinderCollection::forFiles()
 	->name('*.md')
 	->map(fn(SplFileInfo $info) => $info->getBasename('.md'))
 	->reject(fn($basename) => $registered_views->contains("pages.{$basename}"))
-	->each(fn($page) => Route::get("/{$page}", function(MarkdownConverter $converter) use ($page) {
-		$src = file_get_contents(md_path("pages/{$page}.md"));
-		$content = $converter->convert($src);
-		$front = $content instanceof RenderedContentWithFrontMatter ? $content->getFrontMatter() : [];
-		return view('markdown-page', [
-			'og' => data_get($front, 'og', $page),
-			'title' => str(data_get($front, 'title'))->append(' - Chris Morrell'),
-			'markdown' => new HtmlString($content),
-		]);
-	})->name("pages.{$page}"));
+	->each(fn($page) => Route::get("/{$page}", MarkdownController::class)
+		->defaults('page', $page)
+		->name("pages.{$page}"));
 
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');
