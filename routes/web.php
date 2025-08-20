@@ -14,6 +14,7 @@ Route::view('/verbs-errors', 'pages.verbs-errors');
 Route::view('/llms-in-mid-2025', 'pages.llms-in-mid-2025');
 Route::view('/joey-t-calculator', 'pages.joey-t-calculator');
 Route::view('/bio', 'pages.bio');
+Route::view('/llm-recipes', 'pages.llm-recipes');
 
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');
