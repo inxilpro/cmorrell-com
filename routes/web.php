@@ -2,37 +2,30 @@
 
 use App\Http\Controllers\MarkdownController;
 use App\Support\FinderCollection;
-use App\Support\MarkdownConverter;
-use Illuminate\Routing\Route as RouteInst;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\HtmlString;
-use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use Symfony\Component\Finder\SplFileInfo;
 
-Route::view('/', 'pages.home');
-
-$registered_views = collect(Route::getRoutes()->getRoutes())
-	->filter(fn(RouteInst $route) => data_get($route->action, 'controller') === '\Illuminate\Routing\ViewController')
-	->map(fn(RouteInst $route) => $route->defaults['view']);
-
-// Auto-register view/pages/*.blade.php
-FinderCollection::forFiles()
-	->in(resource_path('views/pages'))
-	->name('*.blade.php')
-	->map(fn(SplFileInfo $info) => $info->getBasename('.blade.php'))
-	->reject(fn($basename) => $registered_views->contains("pages.{$basename}"))
-	->each(fn($page) => Route::view("/{$page}", "pages.{$page}")->name("pages.{$page}"));
-
-// Auto-register view/markdown/pages/*.md
+// Auto-register view/markdown/pages/*.md (lowest priority)
 FinderCollection::forFiles()
 	->in(resource_path('views/markdown/pages'))
 	->name('*.md')
 	->map(fn(SplFileInfo $info) => $info->getBasename('.md'))
-	->reject(fn($basename) => $registered_views->contains("pages.{$basename}"))
 	->each(fn($page) => Route::get("/{$page}", MarkdownController::class)
 		->defaults('page', $page)
 		->name("pages.{$page}"));
 
+// Auto-register view/pages/*.blade.php (higher priority)
+FinderCollection::forFiles()
+	->in(resource_path('views/pages'))
+	->name('*.blade.php')
+	->map(fn(SplFileInfo $info) => $info->getBasename('.blade.php'))
+	->each(fn($page) => Route::view("/{$page}", "pages.{$page}")
+		->name("pages.{$page}"));
+
+// Manually register views (highest priority)
+Route::view('/', 'pages.home');
+
+// Local-only routes
 if (App::isLocal()) {
 	Route::view('opengraph', 'opengraph');
 }
