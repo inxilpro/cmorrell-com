@@ -141,7 +141,7 @@
 						Code
 					</a>
 					<span> + </span>
-					<a href="https://www.youtube.com/watch?v=_eMBogMlShs" class="text-gray-600 font-bold underline hover:text-black">
+					<a href="https://youtu.be/qLC04_BPQTY?si=cVZR3Y9JAEdcAV_-" class="text-gray-600 font-bold underline hover:text-black">
 						YouTube
 					</a>
 					<span> + </span>
