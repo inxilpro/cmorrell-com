@@ -14,8 +14,10 @@
         "laravel/tinker": "^2.8",
         "league/commonmark": "^2.6",
         "spatie/laravel-feed": "^4.2",
+        "stil/gd-text": "^1.1",
         "symfony/yaml": "^7.3",
-        "torchlight/torchlight-commonmark": "^0.5.5"
+        "torchlight/torchlight-commonmark": "^0.5.5",
+        "ext-gd": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

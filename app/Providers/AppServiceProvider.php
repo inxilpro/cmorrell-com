@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Support\TorchlightManager;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -22,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
 			$this->app->singleton(Manager::class, function() {
 				return new TorchlightManager();
 			});
+		});
+		
+		URL::macro('og', function(string $text, string $url) {
+			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
 		});
 		
 		View::share('slug', new class implements DeferringDisplayableValue

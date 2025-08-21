@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb53eb510e04a74230b689f1eba4e489",
+    "content-hash": "2455f7926b695e8028c7bdeb47664019",
     "packages": [
         {
             "name": "brick/math",
@@ -3542,6 +3542,45 @@
                 }
             ],
             "time": "2024-12-09T16:29:14+00:00"
+        },
+        {
+            "name": "stil/gd-text",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stil/gd-text.git",
+                "reference": "ae2bd5736dbd6d45a4af1e4b9c573dd4d8d06b11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stil/gd-text/zipball/ae2bd5736dbd6d45a4af1e4b9c573dd4d8d06b11",
+                "reference": "ae2bd5736dbd6d45a4af1e4b9c573dd4d8d06b11",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GDText\\": "src/",
+                    "GDText\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A class drawing multiline and aligned text on pictures. Uses GD extension.",
+            "support": {
+                "issues": "https://github.com/stil/gd-text/issues",
+                "source": "https://github.com/stil/gd-text/tree/master"
+            },
+            "time": "2016-07-22T22:31:04+00:00"
         },
         {
             "name": "symfony/console",
