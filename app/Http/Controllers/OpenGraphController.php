@@ -67,20 +67,35 @@ class OpenGraphController extends Controller
 		return $response;
 	}
 	
-	protected function computeMaxFontSize(string $text, float $line_height, int $width = 1100, int $height = 527)
-	{
+	protected function computeMaxFontSize(
+		string $text,
+		float $line_height,
+		int $width = 1100,
+		int $height = 527,
+		int $min = 10,
+		int $max = 200,
+	) {
 		$font = resource_path('fonts/HouseSlant.ttf');
-		$font_size = 160;
+		$size = $min;
 		
-		do {
-			$font_size -= 10;
+		while ($min <= $max) {
+			$font_size = intval(($min + $max) / 2);
 			$points = 0.75 * $font_size;
 			
 			$lines = $this->wrapText($text, $font, $points, $width);
 			$total_height = count($lines) * $font_size * $line_height;
-		} while ($total_height > $height && $font_size > 10);
+			
+			if ($total_height <= $height) {
+				// Text fits, try a larger size
+				$size = $font_size;
+				$min = $font_size + 1;
+			} else {
+				// Text doesn't fit, try a smaller size
+				$max = $font_size - 1;
+			}
+		}
 		
-		return $font_size;
+		return $size;
 	}
 	
 	protected function wrapText(string $text, string $font, float $points, int $max_width): array
