@@ -22,23 +22,24 @@ class OpenGraphController extends Controller
 			return $response;
 		}
 		
-		$im = imagecreatetruecolor(1200, 627);
-		$white = imagecolorallocate($im, 255, 255, 255);
-		$black = imagecolorallocate($im, 0, 0, 0);
+		$im = imagecreatefrompng(public_path('images/og.png'));
 		
-		$width = 1200;
-		$height = 627;
+		$width = imagesx($im);
+		$height = imagesy($im);
 		$padding = 50;
 		$bar_height = 50;
+		$avatar_area_height = 217;
+		$title_area_height = $height - $avatar_area_height - $padding - $bar_height;
 		
-		imagefill($im, 0, 0, $white);
+		$black = imagecolorallocate($im, 0, 0, 0);
 		
-		// Main text
+		// Title of page
 		$box = new Box($im);
 		$box->setFontFace(resource_path('fonts/HouseSlant.ttf'));
 		$box->setFontColor(new Color(0, 0, 0));
-		$box->setFontSize($this->computeMaxFontSize($text, $width - ($padding * 2), $height - ($padding * 2) - $bar_height));
-		$box->setBox($padding, $padding, $width - ($padding * 2), $height - ($padding * 2) - $bar_height);
+		$box->setFontSize($this->computeMaxFontSize($text, 0.9, $width - ($padding * 2), $title_area_height));
+		$box->setLineHeight(0.9);
+		$box->setBox($padding, $avatar_area_height, $width - ($padding * 2), $title_area_height);
 		$box->setTextAlign('center', 'center');
 		$box->draw($text);
 		
@@ -66,19 +67,17 @@ class OpenGraphController extends Controller
 		return $response;
 	}
 	
-	protected function computeMaxFontSize(string $text, int $width = 1100, int $height = 527)
+	protected function computeMaxFontSize(string $text, float $line_height, int $width = 1100, int $height = 527)
 	{
 		$font = resource_path('fonts/HouseSlant.ttf');
-		$font_size = 200;
+		$font_size = 160;
 		
 		do {
 			$font_size -= 10;
 			$points = 0.75 * $font_size;
 			
 			$lines = $this->wrapText($text, $font, $points, $width);
-			
-			$line_height = $font_size * 1.2;
-			$total_height = count($lines) * $line_height;
+			$total_height = count($lines) * $font_size * $line_height;
 		} while ($total_height > $height && $font_size > 10);
 		
 		return $font_size;
