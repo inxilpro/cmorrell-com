@@ -20,7 +20,7 @@ class Markdown extends Component
 			$converter = app(MarkdownConverter::class);
 			
 			$src = match (true) {
-				$this->file !== null => file_get_contents($this->file),
+				null !== $this->file => file_get_contents($this->file),
 				$data['slot']->isNotEmpty() => $this->stripIndent($data['slot']->toHtml()),
 				default => throw new InvalidArgumentException('No markdown provided!'),
 			};
@@ -50,7 +50,7 @@ class Markdown extends Component
 		preg_match_all('/^[ \t]*(?=\S)/m', $other_lines, $matches);
 		$indent = array_reduce($matches[0], fn($indent, $match) => min($indent, strlen($match)), PHP_INT_MAX);
 		
-		if ($indent === PHP_INT_MAX) {
+		if (PHP_INT_MAX === $indent) {
 			return $markdown;
 		}
 		
