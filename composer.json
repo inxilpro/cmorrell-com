@@ -18,11 +18,12 @@
         "spatie/laravel-feed": "^4.4",
         "stil/gd-text": "^1.1",
         "symfony/yaml": "^7.3",
-        "torchlight/torchlight-commonmark": "^0.5.5",
+        "torchlight/torchlight-commonmark": "^0.6",
         "ext-gd": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "^3.86",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
@@ -58,6 +59,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "fix-style": [
+            "vendor/bin/php-cs-fixer fix"  
         ]
     },
     "extra": {
