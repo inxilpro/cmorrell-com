@@ -67,16 +67,16 @@
 		Now, let's let the computers do math for us:
 	</h2>
 	
-	<div x-data="tuning" class="my-4 border rounded p-4">
+	<div x-data="tuning" class="my-4 border rounded-sm p-4">
 		<div class="lg:flex -mx-2">
-			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded">
+			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded-sm">
 				<label for="total_ram" class="font-bold mb-1 bg-gray-100 text-center p-2">
 					Total RAM:
 				</label>
 				<div class="flex justify-center items-baseline p-2 -mx-1">
 					<input
 						id="total_ram"
-						class="border border-gray-300 p-2 rounded focus:border-gray-500 mx-1"
+						class="border border-gray-300 p-2 rounded-sm focus:border-gray-500 mx-1"
 						type="number"
 						min="0"
 						step=".5"
@@ -87,14 +87,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded">
+			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded-sm">
 				<label for="reserved_ram" class="font-bold mb-1 bg-gray-100 text-center p-2">
 					Reserved RAM:
 				</label>
 				<div class="flex justify-center items-baseline p-2 -mx-1">
 					<input
 						id="reserved_ram"
-						class="border border-gray-300 p-2 rounded focus:border-gray-500 mx-1"
+						class="border border-gray-300 p-2 rounded-sm focus:border-gray-500 mx-1"
 						type="number"
 						min="0"
 						step=".5"
@@ -105,14 +105,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded">
+			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded-sm">
 				<label for="average_ram" class="font-bold mb-1 bg-gray-100 text-center p-2">
 					Average php-fpm process:
 				</label>
 				<div class="flex justify-center items-baseline p-2 -mx-1">
 					<input
 						id="average_ram"
-						class="border border-gray-300 p-2 rounded focus:border-gray-500 mx-1"
+						class="border border-gray-300 p-2 rounded-sm focus:border-gray-500 mx-1"
 						type="number"
 						min="0"
 						step=".5"
@@ -129,7 +129,7 @@
 				Suggested Settings:
 			</h3>
 			
-			<div class="bg-gray-100 p-2 rounded mt-4 border text-sm overflow-x-auto w-full">
+			<div class="bg-gray-100 p-2 rounded-sm mt-4 border text-sm overflow-x-auto w-full">
 				<div class="text-gray-600 font-mono whitespace-no-wrap">; Run php-fpm in "dynamic" mode</div>
 				<div class="text-gray-900 font-mono whitespace-no-wrap">pm = <strong>dynamic</strong></div>
 				<div class="my-4"></div>

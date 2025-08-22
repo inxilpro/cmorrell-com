@@ -9,20 +9,20 @@
 		are you? This easy calculator will help you find out!
 	</p>
 	
-	<div x-data="joeyt" class="my-4 border rounded p-4">
+	<div x-data="joeyt" class="my-4 border rounded-sm p-4">
 		<h2 class="text-xl font-bold font-slant text-gray-800">
 			Your Height:
 		</h2>
 		
 		<div class="lg:flex -mx-2 mt-4">
-			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded">
+			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded-sm">
 				<label for="feet" class="font-bold mb-1 bg-gray-100 text-center p-2">
 					Feet
 				</label>
 				<div class="flex justify-center items-baseline p-2 -mx-1">
 					<input
 						id="feet"
-						class="border border-gray-300 p-2 rounded focus:border-gray-500 mx-1"
+						class="border border-gray-300 p-2 rounded-sm focus:border-gray-500 mx-1"
 						type="number"
 						min="0"
 						step="1"
@@ -33,14 +33,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded">
+			<div class="mb-2 flex-1 flex flex-col justify-center mx-2 border rounded-sm">
 				<label for="inches" class="font-bold mb-1 bg-gray-100 text-center p-2">
 					Inches
 				</label>
 				<div class="flex justify-center items-baseline p-2 -mx-1">
 					<input
 						id="inches"
-						class="border border-gray-300 p-2 rounded focus:border-gray-500 mx-1"
+						class="border border-gray-300 p-2 rounded-sm focus:border-gray-500 mx-1"
 						type="number"
 						min="0"
 						step=".25"

@@ -10,7 +10,7 @@ $nth = 1;
 	</h1>
 	
 	{{--
-	<div class="bg-yellow-50 border-yellow-300 rounded p-4 text-yellow-900 font-semibold my-6">
+	<div class="bg-yellow-50 border-yellow-300 rounded-sm p-4 text-yellow-900 font-semibold my-6">
 		<div class="flex items-start justify-start gap-2">
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 shrink-0 mt-1">
 				<path stroke-linecap="round"
@@ -27,7 +27,7 @@ $nth = 1;
 	</div>
 	--}}
 	
-	<div class="sm:float-right sm:max-w-xs bg-gray-700 text-white p-4 sm:ml-4 mb-4 sm:-mr-4 rounded">
+	<div class="sm:float-right sm:max-w-xs bg-gray-700 text-white p-4 sm:ml-4 mb-4 sm:-mr-4 rounded-sm">
 		<h2 class="font-semibold opacity-80">
 			On this page:
 		</h2>

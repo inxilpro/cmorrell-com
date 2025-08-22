@@ -1,48 +1,72 @@
-@font-face {
-	font-family: "House Slant";
-	src: url('../fonts/HouseSlant.eot');
-	src: url("../fonts/HouseSlant.eot?#iefix") format("embedded-opentype"), url("../fonts/HouseSlant.woff") format("woff");
-	font-style: normal;
-	font-weight: 400;
-	font-stretch: normal;
-	font-display: swap;
+@import 'tailwindcss';
+
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-@tailwind base;
-
-body {
-	min-height: 100vh;
+@layer base {
+  @font-face {
+    font-family: 'House Slant';
+    src: url('../fonts/HouseSlant.eot');
+    src:
+      url('../fonts/HouseSlant.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/HouseSlant.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-display: swap;
+  }
 }
 
-.font-slant {
-	font-family: "House Slant", sans-serif;
+@layer base {
+  body {
+    min-height: 100vh;
+  }
+
+  code {
+    @apply bg-gray-200 text-gray-800 inline-block px-2 rounded-sm font-mono border border-gray-300;
+    font-size: 85%;
+  }
+
+  pre > code {
+    @apply block mb-4 py-4 overflow-x-auto;
+  }
+
+  .torchlight .line-number {
+    @apply mr-4 ml-2;
+  }
 }
 
-code {
-	@apply bg-gray-200 text-gray-800 inline-block px-2 rounded font-mono border border-gray-300;
-	font-size: 85%;
-}
-
-pre > code {
-	@apply block mb-4 py-4 overflow-x-auto;
-}
-
-.torchlight .line-number {
-	@apply mr-4 ml-2;
-}
-
-@tailwind components;
-
-@tailwind utilities;
-
-.shadow-overflow-y {
-	background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
-	linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-	radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
-	radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
-	
-	background-repeat: no-repeat;
-	background-color: white;
-	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-	background-attachment: local, local, scroll, scroll;
+@layer utilities {
+  .font-slant {
+    font-family: 'House Slant', sans-serif;
+  }
+  
+  .shadow-overflow-y {
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+    
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
+  }
 }

@@ -68,7 +68,7 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 					'class' => 'block w-full leading-normal mb-4 overflow-x-auto',
 				],
 				Code::class => [
-					'class' => 'inline-block bg-gray-50 border border-gray-100 rounded font-mono px-2 py-0 m-0 text-purple-600',
+					'class' => 'inline-block bg-gray-50 border border-gray-100 rounded-sm font-mono px-2 py-0 m-0 text-purple-600',
 				],
 				ListBlock::class => [
 					'class' => static fn(ListBlock $node) => match ($node->getListData()->bulletChar) {

@@ -3,7 +3,7 @@
 	'eventSourced',
 ])
 
-<div class="p-4 max-w-[1400px] mx-auto lg:border lg:rounded">
+<div class="p-4 max-w-[1400px] mx-auto lg:border lg:rounded-sm">
 	<x-columns>
 		<x-columns.column>
 			<x-markdown :file="$traditional" />

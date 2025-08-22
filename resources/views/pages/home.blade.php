@@ -1,6 +1,6 @@
 <x-layout>
 	<div class="lg:flex">
-		<div class="flex-grow">
+		<div class="grow">
 			
 			<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 				Hi, I'm Chris.

@@ -45,7 +45,7 @@
 				tricky to wrap your head around at first!
 			</x-markdown>
 			
-			<div class="bg-purple-50 border border-purple-200 rounded p-4 mt-8">
+			<div class="bg-purple-50 border border-purple-200 rounded-sm p-4 mt-8">
 				<div>
 					<strong>One little note:</strong> In our event sourced code, we're storing
 					extra stuff in our events. That's because storage is cheap, and we're only
