@@ -18,7 +18,7 @@ class GenerateOpenGraphImagesCommand extends Command
 
     protected ?RemoteWebDriver $driver = null;
 
-    public function handle()
+    public function handle(): int
     {
         $this->driver = $this->driver();
 
