@@ -15,18 +15,10 @@ use Torchlight\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {
-	/**
-	 * The path to your application's "home" route.
-	 *
-	 * Typically, users are redirected here after authentication.
-	 *
-	 * @var string
-	 */
-	public const HOME = '/home';
+	public const HOME = '/';
 	
 	public function register(): void
 	{
-		
 	}
 	
 	public function boot(): void
@@ -41,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
 			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
 		});
 		
-		View::share('slug',
+		View::share(
+			'slug',
 			new class() implements DeferringDisplayableValue {
 				public function resolveDisplayableValue()
 				{
@@ -52,7 +45,8 @@ class AppServiceProvider extends ServiceProvider
 						default => Str::slug(strtolower($path)),
 					};
 				}
-			});
+			}
+		);
 		
 		$this->bootRoute();
 	}
