@@ -1,7 +1,7 @@
 <x-layout>
 	
 	<div class="flex justify-start items-center gap-6 mt-12">
-		<video class="w-full h-auto max-w-xs rounded-lg aspect-[9/16] object-cover hidden sm:block" autoplay loop muted playsinline>
+		<video class="w-full h-auto max-w-xs rounded-lg aspect-9/16 object-cover hidden sm:block" autoplay loop muted playsinline>
 			<source src="{{ asset('images/cm.mp4') }}" type="video/mp4" />
 		</video>
 		<div>
@@ -19,7 +19,7 @@
 			<div class="mt-12">
 				<a
 					href="{{ asset('images/headshot.zip') }}"
-					class="inline-flex items-center gap-x-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-2xl font-slant text-black shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					class="inline-flex items-center gap-x-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-2xl font-slant text-black shadow-xs hover:bg-gray-200 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 					download
 				>
 					<img

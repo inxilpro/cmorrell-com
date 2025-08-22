@@ -6,7 +6,7 @@
 		class="block mb-6 mx-auto group text-center"
 		style="max-width: 250px"
 	>
-		<div class="flex flex-col align-center border-2 border-purple-400 rounded-lg overflow-hidden shadow">
+		<div class="flex flex-col align-center border-2 border-purple-400 rounded-lg overflow-hidden shadow-sm">
 			<img
 				class="h-auto w-full"
 				src="https://media.zencastr.com/image-files/560d77e29388483a4269cc1a/ab9e695e-eac1-4125-9ca1-5764bd441959.png"
@@ -24,7 +24,7 @@
 		target="_blank"
 		class="block mb-6 mx-auto group text-center"
 	>
-		<div class="flex bg-black text-white items-center justify-center rounded font-mono font-semibold py-6">
+		<div class="flex bg-black text-white items-center justify-center rounded-sm font-mono font-semibold py-6">
 			PHP×Philly
 		</div>
 		
