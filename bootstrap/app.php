@@ -4,6 +4,7 @@ use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Torchlight\Middleware\RenderTorchlight;
 
 return Application::configure(basePath: dirname(__DIR__))
 	->withProviders()
@@ -17,9 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
 	->withMiddleware(function(Middleware $middleware) {
 		$middleware->redirectGuestsTo(fn() => route('login'));
 		$middleware->redirectUsersTo(AppServiceProvider::HOME);
-
-		$middleware->web(\Torchlight\Middleware\RenderTorchlight::class);
-
+		
+		$middleware->web(RenderTorchlight::class);
+		
 		$middleware->throttleApi();
 	})
 	->withExceptions(function(Exceptions $exceptions) {

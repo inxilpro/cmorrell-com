@@ -14,7 +14,7 @@ class Sidebar extends Component
 			'stars' => $this->stars(),
 		]);
 	}
-
+	
 	protected function stars()
 	{
 		return Cache::remember(

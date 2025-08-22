@@ -24,25 +24,25 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 	public function __construct()
 	{
 		$environment = new Environment($this->config());
-
+		
 		// Github-flavored extensions
 		$environment->addExtension(new CommonMarkCoreExtension());
 		$environment->addExtension(new GithubFlavoredMarkdownExtension());
-
+		
 		// Custom extensions
 		$environment->addExtension(new DefaultAttributesExtension());
 		$environment->addExtension(new TorchlightExtension());
 		$environment->addExtension(new FrontMatterExtension());
 		$environment->addExtension(new TitleExtractorExtension());
-
+		
 		parent::__construct($environment);
 	}
-
+	
 	public function getEnvironment(): Environment
 	{
 		return $this->environment;
 	}
-
+	
 	protected function config(): array
 	{
 		return [

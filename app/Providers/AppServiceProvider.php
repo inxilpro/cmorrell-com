@@ -23,12 +23,12 @@ class AppServiceProvider extends ServiceProvider
 	 * @var string
 	 */
 	public const HOME = '/home';
-
+	
 	public function register(): void
 	{
 		
 	}
-
+	
 	public function boot(): void
 	{
 		$this->app->booted(function() {
@@ -36,26 +36,27 @@ class AppServiceProvider extends ServiceProvider
 				return new TorchlightManager();
 			});
 		});
-
+		
 		URL::macro('og', function(string $text, string $url) {
 			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
 		});
-
-		View::share('slug', new class() implements DeferringDisplayableValue {
-			public function resolveDisplayableValue()
-			{
-				$path = trim(request()->path(), '/');
-
-				return match ($path) {
-					'' => 'home',
-					default => Str::slug(strtolower($path)),
-				};
-			}
-		});
-
+		
+		View::share('slug',
+			new class() implements DeferringDisplayableValue {
+				public function resolveDisplayableValue()
+				{
+					$path = trim(request()->path(), '/');
+					
+					return match ($path) {
+						'' => 'home',
+						default => Str::slug(strtolower($path)),
+					};
+				}
+			});
+		
 		$this->bootRoute();
 	}
-
+	
 	public function bootRoute(): void
 	{
 		RateLimiter::for('api', function(Request $request) {
