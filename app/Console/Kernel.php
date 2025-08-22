@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(DownloadsStatsCommand::class)->dailyAt('07:00');
     }
-	
+
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');

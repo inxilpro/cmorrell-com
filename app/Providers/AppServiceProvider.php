@@ -12,34 +12,34 @@ use Torchlight\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {
-	public function register(): void
-	{
-		//
-	}
-	
-	public function boot(): void
-	{
-		$this->app->booted(function() {
-			$this->app->singleton(Manager::class, function() {
-				return new TorchlightManager();
-			});
-		});
-		
-		URL::macro('og', function(string $text, string $url) {
-			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
-		});
-		
-		View::share('slug', new class implements DeferringDisplayableValue
-		{
-			public function resolveDisplayableValue()
-			{
-				$path = trim(request()->path(), '/');
-				
-				return match ($path) {
-					'' => 'home',
-					default => Str::slug(strtolower($path)),
-				};
-			}
-		});
-	}
+    public function register(): void
+    {
+        //
+    }
+
+    public function boot(): void
+    {
+        $this->app->booted(function () {
+            $this->app->singleton(Manager::class, function () {
+                return new TorchlightManager;
+            });
+        });
+
+        URL::macro('og', function (string $text, string $url) {
+            return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
+        });
+
+        View::share('slug', new class implements DeferringDisplayableValue
+        {
+            public function resolveDisplayableValue()
+            {
+                $path = trim(request()->path(), '/');
+
+                return match ($path) {
+                    '' => 'home',
+                    default => Str::slug(strtolower($path)),
+                };
+            }
+        });
+    }
 }
