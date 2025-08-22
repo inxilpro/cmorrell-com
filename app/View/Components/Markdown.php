@@ -6,7 +6,6 @@ use App\Support\MarkdownConverter;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
 use InvalidArgumentException;
-use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 
 class Markdown extends Component
 {

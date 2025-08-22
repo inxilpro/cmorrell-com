@@ -136,7 +136,7 @@
 					</a>
 				</li>
 				<li class="my-2">
-					Laracon 2025: 
+					Laracon 2025:
 					<a href="https://github.com/inxilpro/laracon-2025" class="text-gray-600 font-bold underline hover:text-black">
 						Code
 					</a>

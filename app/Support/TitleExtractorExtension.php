@@ -16,7 +16,7 @@ class TitleExtractorExtension implements ExtensionInterface
 	{
 		$environment->addEventListener(
 			DocumentRenderedEvent::class,
-			new class {
+			new class() {
 				public function __invoke(DocumentRenderedEvent $event): void
 				{
 					$output = $event->getOutput();
@@ -42,6 +42,7 @@ class TitleExtractorExtension implements ExtensionInterface
 								$text .= $child->getLiteral();
 							}
 						}
+						
 						return $text ?: null;
 					}
 					

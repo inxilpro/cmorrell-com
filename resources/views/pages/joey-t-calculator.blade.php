@@ -58,7 +58,7 @@
 				You are <span class="text-6xl text-purple-700" x-text="height"></span> Joey T<span x-text="1 === height ? '' : '’s'"></span> tall
 			</h3>
 		</div>
-		
+	
 	</div>
 	
 	<script>

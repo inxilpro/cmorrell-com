@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Support\TorchlightManager;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -12,9 +15,10 @@ use Torchlight\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {
+	public const HOME = '/';
+	
 	public function register(): void
 	{
-		//
 	}
 	
 	public function boot(): void
@@ -29,17 +33,28 @@ class AppServiceProvider extends ServiceProvider
 			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
 		});
 		
-		View::share('slug', new class implements DeferringDisplayableValue
-		{
-			public function resolveDisplayableValue()
-			{
-				$path = trim(request()->path(), '/');
-				
-				return match ($path) {
-					'' => 'home',
-					default => Str::slug(strtolower($path)),
-				};
+		View::share(
+			'slug',
+			new class() implements DeferringDisplayableValue {
+				public function resolveDisplayableValue()
+				{
+					$path = trim(request()->path(), '/');
+					
+					return match ($path) {
+						'' => 'home',
+						default => Str::slug(strtolower($path)),
+					};
+				}
 			}
+		);
+		
+		$this->bootRoute();
+	}
+	
+	public function bootRoute(): void
+	{
+		RateLimiter::for('api', function(Request $request) {
+			return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
 		});
 	}
 }

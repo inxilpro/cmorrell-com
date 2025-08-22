@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use Closure;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Packagist\Api\Client;
@@ -44,7 +43,7 @@ class Downloads
 		$this->log('Getting all NPM packages...');
 		
 		$packages = Cache::remember(
-			key: "npm:inxilpro:all",
+			key: 'npm:inxilpro:all',
 			ttl: now()->addWeek(),
 			callback: fn() => Http::get('https://api.npms.io/v2/search?q=maintainer:inxilpro')->json(),
 		);
@@ -63,33 +62,6 @@ class Downloads
 			$this->total += $downloads;
 			$this->data[] = ['npm', $package_name, number_format($downloads)];
 		}
-	}
-	
-	protected function npmPackage(string $package_name): int
-	{
-		$count = 0;
-		$start = now()->subYearNoOverflow();
-		$end = now();
-		
-		do {
-			$url = sprintf(
-				'https://npm-trends-proxy.uidotdev.workers.dev/npm/downloads/range/%s:%s/%s',
-				$start->format('Y-m-d'), $end->format('Y-m-d'), $package_name
-			);
-			
-			$response = Http::get($url);
-			
-			if (! empty($response->json('error'))) {
-				break;
-			}
-			
-			$count += collect($response->json('downloads'))->pluck('downloads')->sum();
-			
-			$end = $start->toImmutable()->subDay();
-			$start = $end->toImmutable()->subYearNoOverflow();
-		} while ($response->ok());
-		
-		return $count;
 	}
 	
 	public function packagist(): void
@@ -130,6 +102,35 @@ class Downloads
 			$this->total += $downloads;
 			$this->data[] = ['packagist', $package_name, number_format($downloads)];
 		}
+	}
+	
+	protected function npmPackage(string $package_name): int
+	{
+		$count = 0;
+		$start = now()->subYearNoOverflow();
+		$end = now();
+		
+		do {
+			$url = sprintf(
+				'https://npm-trends-proxy.uidotdev.workers.dev/npm/downloads/range/%s:%s/%s',
+				$start->format('Y-m-d'),
+				$end->format('Y-m-d'),
+				$package_name
+			);
+			
+			$response = Http::get($url);
+			
+			if (! empty($response->json('error'))) {
+				break;
+			}
+			
+			$count += collect($response->json('downloads'))->pluck('downloads')->sum();
+			
+			$end = $start->toImmutable()->subDay();
+			$start = $end->toImmutable()->subYearNoOverflow();
+		} while ($response->ok());
+		
+		return $count;
 	}
 	
 	protected function log(string $message): void

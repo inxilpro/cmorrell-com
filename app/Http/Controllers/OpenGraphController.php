@@ -79,7 +79,7 @@ class OpenGraphController extends Controller
 		$size = $min;
 		
 		while ($min <= $max) {
-			$font_size = intval(($min + $max) / 2);
+			$font_size = (int) (($min + $max) / 2);
 			$points = 0.75 * $font_size;
 			
 			$lines = $this->wrapText($text, $font, $points, $width);
