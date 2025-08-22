@@ -15,52 +15,51 @@ use Torchlight\Manager;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * The path to your application's "home" route.
-     *
-     * Typically, users are redirected here after authentication.
-     *
-     * @var string
-     */
-    public const HOME = '/home';
+	/**
+	 * The path to your application's "home" route.
+	 *
+	 * Typically, users are redirected here after authentication.
+	 *
+	 * @var string
+	 */
+	public const HOME = '/home';
 
-    public function register(): void
-    {
-        //
-    }
+	public function register(): void
+	{
+		
+	}
 
-    public function boot(): void
-    {
-        $this->app->booted(function () {
-            $this->app->singleton(Manager::class, function () {
-                return new TorchlightManager;
-            });
-        });
+	public function boot(): void
+	{
+		$this->app->booted(function() {
+			$this->app->singleton(Manager::class, function() {
+				return new TorchlightManager();
+			});
+		});
 
-        URL::macro('og', function (string $text, string $url) {
-            return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
-        });
+		URL::macro('og', function(string $text, string $url) {
+			return $this->signedRoute('og', ['text' => $text, 'url' => $url]);
+		});
 
-        View::share('slug', new class implements DeferringDisplayableValue
-        {
-            public function resolveDisplayableValue()
-            {
-                $path = trim(request()->path(), '/');
+		View::share('slug', new class() implements DeferringDisplayableValue {
+			public function resolveDisplayableValue()
+			{
+				$path = trim(request()->path(), '/');
 
-                return match ($path) {
-                    '' => 'home',
-                    default => Str::slug(strtolower($path)),
-                };
-            }
-        });
+				return match ($path) {
+					'' => 'home',
+					default => Str::slug(strtolower($path)),
+				};
+			}
+		});
 
-        $this->bootRoute();
-    }
+		$this->bootRoute();
+	}
 
-    public function bootRoute(): void
-    {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
-    }
+	public function bootRoute(): void
+	{
+		RateLimiter::for('api', function(Request $request) {
+			return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+		});
+	}
 }
