@@ -36,6 +36,12 @@ jobs:
       
       - name: Tests
         run: ./vendor/bin/pest --ci
+        
+      - name: Upload test screen shots
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-screen-shots
+          path: "./tests/Browser/Screenshots"
 
 
     
