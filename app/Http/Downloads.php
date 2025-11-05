@@ -42,9 +42,9 @@ class Downloads
 	{
 		$this->log('Getting all NPM packages...');
 		
-		$packages = Cache::remember(
+		$packages = Cache::flexible(
 			key: 'npm:inxilpro:all',
-			ttl: now()->addWeek(),
+			ttl: [now()->addWeek(), now()->addMonth()],
 			callback: fn() => Http::get('https://api.npms.io/v2/search?q=maintainer:inxilpro')->json(),
 		);
 		
@@ -53,9 +53,9 @@ class Downloads
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
 			
-			$downloads = Cache::remember(
+			$downloads = Cache::flexible(
 				key: "npm:{$package_name}:download_sum:v1",
-				ttl: now()->addDay(),
+				ttl: [now()->addDay(), now()->addMonth()],
 				callback: fn() => $this->npmPackage($package_name),
 			);
 			
@@ -80,9 +80,9 @@ class Downloads
 		foreach ($vendors as $vendor) {
 			$this->log("Getting all packagist packages for vendor '{$vendor}'...");
 			
-			$vendor_packages = Cache::remember(
+			$vendor_packages = Cache::flexible(
 				key: "packagist:{$vendor}:all",
-				ttl: now()->addDay(),
+				ttl: [now()->addDay(), now()->addMonth()],
 				callback: fn() => $this->client->all(['vendor' => $vendor])
 			);
 			
@@ -92,10 +92,10 @@ class Downloads
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
 			
-			$package_details = Cache::remember(
+			$package_details = Cache::flexible(
 				key: "packagist:{$package_name}:stats",
-				ttl: now()->addDay(),
-				callback: fn() => $this->client->get($package_name)
+				ttl: [now()->addDay(), now()->addMonth()],
+				callback: fn() => $this->client->get($package_name),
 			);
 			
 			$downloads = $package_details->getDownloads()->getTotal();
