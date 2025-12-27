@@ -23,7 +23,7 @@ FinderCollection::forFiles()
 		->name("pages.{$page}"));
 
 // Manually register views (highest priority)
-Route::view('/', 'pages.home');
+Route::view('/', 'home');
 
 // Local-only routes
 if (App::isLocal()) {
