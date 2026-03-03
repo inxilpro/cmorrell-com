@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MarkdownController;
+use App\Http\Controllers\RawMarkdownController;
 use App\Support\FinderCollection;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Finder\SplFileInfo;
@@ -10,9 +11,15 @@ FinderCollection::forFiles()
 	->in(resource_path('views/markdown/pages'))
 	->name('*.md')
 	->map(fn(SplFileInfo $info) => $info->getBasename('.md'))
-	->each(fn($page) => Route::get("/{$page}", MarkdownController::class)
-		->defaults('page', $page)
-		->name("pages.{$page}"));
+	->each(function($page) {
+		Route::get("/{$page}", MarkdownController::class)
+			->defaults('page', $page)
+			->name("pages.{$page}");
+		
+		Route::get("/{$page}.md", RawMarkdownController::class)
+			->defaults('page', $page)
+			->name("pages.{$page}.md");
+	});
 
 // Auto-register view/pages/*.blade.php (higher priority)
 FinderCollection::forFiles()

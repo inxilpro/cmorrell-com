@@ -131,6 +131,11 @@
 			
 			<ul class="list-disc ml-6">
 				<li class="my-2">
+					<a href="{{ url('/claude-remote-setup') }}" class="text-gray-600 font-bold underline hover:text-black">
+						Setting up Remote Claude Code
+					</a>
+				</li>
+				<li class="my-2">
 					<a href="{{ url('/llm-recipes') }}" class="text-gray-600 font-bold underline hover:text-black">
 						LLM Recipes
 					</a>
