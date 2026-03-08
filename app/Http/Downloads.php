@@ -13,6 +13,10 @@ class Downloads
 	
 	public array $data = [];
 	
+	public bool $refresh_zeroes = false;
+	
+	public bool $refresh_all = false;
+	
 	protected Closure $logger;
 	
 	public function __construct(
@@ -53,11 +57,11 @@ class Downloads
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
 			
-			$downloads = Cache::flexible(
-				key: "npm:{$package_name}:download_sum:v1",
-				ttl: [now()->addDay(), now()->addMonth()],
-				callback: fn() => $this->npmPackage($package_name),
-			);
+			$downloads = $this->npmPackageWithCache($package_name);
+			
+			if (0 === $downloads && $this->refresh_zeroes) {
+				$downloads = $this->npmPackageWithCache($package_name, refresh_cache: true);
+			}
 			
 			$this->total += $downloads;
 			$this->data[] = ['npm', $package_name, number_format($downloads)];
@@ -104,31 +108,66 @@ class Downloads
 		}
 	}
 	
+	protected function npmPackageWithCache(string $package_name, bool $refresh_cache = false): int
+	{
+		$key = "npm:{$package_name}:download_sum:v1";
+		
+		if ($refresh_cache) {
+			Cache::forget($key);
+		}
+		
+		return Cache::flexible(
+			key: $key,
+			ttl: [now()->addDay(), now()->addMonth()],
+			callback: fn() => $this->npmPackage($package_name),
+		);
+	}
+	
 	protected function npmPackage(string $package_name): int
 	{
 		$count = 0;
-		$start = now()->subYearNoOverflow();
 		$end = now();
 		
+		// The NPM API silently caps at ~18 months per request, so we chunk
+		// into 500-day segments to capture the full download history
 		do {
+			$start = $end->toImmutable()->subDays(500);
+			
+			if (! $end->isToday()) {
+				$this->log(" - Fetching for range {$start->format('Y-m-d')} to {$end->format('Y-m-d')}...");
+			}
+			
 			$url = sprintf(
-				'https://npm-trends-proxy.uidotdev.workers.dev/npm/downloads/range/%s:%s/%s',
+				'https://api.npmjs.org/downloads/point/%s:%s/%s',
 				$start->format('Y-m-d'),
 				$end->format('Y-m-d'),
 				$package_name
 			);
 			
-			$response = Http::get($url);
+			$response = Http::createPendingRequest()
+				->retry(4, function(int $attempt, $exception) {
+					$delay = $attempt * 5000;
+					
+					if (429 === $exception?->response?->status()) {
+						if ($retry_after = $exception->response->header('Retry-After')) {
+							$delay = 1 + ((int) $retry_after * 1000);
+						}
+						$this->log(" - Rate limited, waiting {$delay}ms before retry {$attempt}...");
+					}
+					
+					return $delay;
+				}, throw: false)
+				->get($url);
 			
-			if (! empty($response->json('error'))) {
+			if ($response->failed() || $response->json('error')) {
+				$this->log(" - Failed due to a {$response->status()} error. Response: '{$response->body()}'");
 				break;
 			}
 			
-			$count += collect($response->json('downloads'))->pluck('downloads')->sum();
+			$count += $response->json('downloads', 0);
 			
-			$end = $start->toImmutable()->subDay();
-			$start = $end->toImmutable()->subYearNoOverflow();
-		} while ($response->ok());
+			$end = $start->subDay();
+		} while (true);
 		
 		return $count;
 	}
