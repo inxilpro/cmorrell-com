@@ -160,7 +160,6 @@ class Downloads
 								$delay = 1 + ((int) $retry_after * 1000);
 							}
 							$this->log(" - Rate limited, waiting {$delay}ms before retry {$attempt}...");
-							dump($exception);
 						} else {
 							$this->log(" - Got a {$code} error, waiting {$delay}ms before retry {$attempt}...");
 						}
