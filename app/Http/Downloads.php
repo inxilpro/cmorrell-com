@@ -50,6 +50,10 @@ class Downloads
 	{
 		$this->log('Getting all NPM packages...');
 		
+		if ($this->refresh_all) {
+			Cache::forget('npm:inxilpro:all');
+		}
+
 		$packages = Cache::flexible(
 			key: 'npm:inxilpro:all',
 			ttl: [now()->addWeek(), now()->addMonth()],
@@ -61,9 +65,9 @@ class Downloads
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
 			
-			$downloads = $this->npmPackageWithCache($package_name);
-			
-			if (0 === $downloads && $this->refresh_zeroes) {
+			$downloads = $this->npmPackageWithCache($package_name, refresh_cache: $this->refresh_all);
+
+			if (0 === $downloads && $this->refresh_zeroes && ! $this->refresh_all) {
 				$downloads = $this->npmPackageWithCache($package_name, refresh_cache: true);
 			}
 			
@@ -88,6 +92,10 @@ class Downloads
 		foreach ($vendors as $vendor) {
 			$this->log("Getting all packagist packages for vendor '{$vendor}'...");
 			
+			if ($this->refresh_all) {
+				Cache::forget("packagist:{$vendor}:all");
+			}
+
 			$vendor_packages = Cache::flexible(
 				key: "packagist:{$vendor}:all",
 				ttl: [now()->addDay(), now()->addMonth()],
@@ -99,19 +107,35 @@ class Downloads
 		
 		foreach ($package_names as $package_name) {
 			$this->log("Loading stats for '{$package_name}'...");
-			
-			$package_details = Cache::flexible(
-				key: "packagist:{$package_name}:stats",
-				ttl: [now()->addDay(), now()->addMonth()],
-				callback: fn() => $this->client->get($package_name),
-			);
-			
-			$downloads = $package_details->getDownloads()->getTotal();
+
+			$downloads = $this->packagistPackageWithCache($package_name, refresh_cache: $this->refresh_all);
+
+			if (0 === $downloads && $this->refresh_zeroes && ! $this->refresh_all) {
+				$downloads = $this->packagistPackageWithCache($package_name, refresh_cache: true);
+			}
+
 			$this->total += $downloads;
 			$this->data[] = ['packagist', $package_name, number_format($downloads)];
 		}
 	}
 	
+	protected function packagistPackageWithCache(string $package_name, bool $refresh_cache = false): int
+	{
+		$key = "packagist:{$package_name}:stats";
+
+		if ($refresh_cache) {
+			Cache::forget($key);
+		}
+
+		$package_details = Cache::flexible(
+			key: $key,
+			ttl: [now()->addDay(), now()->addMonth()],
+			callback: fn() => $this->client->get($package_name),
+		);
+
+		return $package_details->getDownloads()->getTotal();
+	}
+
 	protected function npmPackageWithCache(string $package_name, bool $refresh_cache = false): int
 	{
 		$key = "npm:{$package_name}:download_sum:v1";
