@@ -3,9 +3,13 @@
 namespace App\Http;
 
 use Closure;
+use Exception;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Packagist\Api\Client;
+use Throwable;
 
 class Downloads
 {
@@ -134,7 +138,7 @@ class Downloads
 			$start = $end->toImmutable()->subDays(500);
 			
 			if (! $end->isToday()) {
-				$this->log(" - Fetching for range {$start->format('Y-m-d')} to {$end->format('Y-m-d')}...");
+				$this->log(" - Fetching for range {$start->format('Y-m-d')} to {$end->format('Y-m-d')} (at {$count})...");
 			}
 			
 			$url = sprintf(
@@ -145,22 +149,40 @@ class Downloads
 			);
 			
 			$response = Http::createPendingRequest()
-				->retry(4, function(int $attempt, $exception) {
-					$delay = $attempt * 5000;
-					
-					if (429 === $exception?->response?->status()) {
-						if ($retry_after = $exception->response->header('Retry-After')) {
-							$delay = 1 + ((int) $retry_after * 1000);
+				->retry(
+					times: 4,
+					sleepMilliseconds: function(int $attempt, Exception $exception) {
+						$code = $exception->response?->status() ?? 500;
+						$delay = $attempt * 5000;
+						
+						if (429 === $code) {
+							if ($retry_after = $exception->response?->header('Retry-After')) {
+								$delay = 1 + ((int) $retry_after * 1000);
+							}
+							$this->log(" - Rate limited, waiting {$delay}ms before retry {$attempt}...");
+							dump($exception);
+						} else {
+							$this->log(" - Got a {$code} error, waiting {$delay}ms before retry {$attempt}...");
 						}
-						$this->log(" - Rate limited, waiting {$delay}ms before retry {$attempt}...");
-					}
-					
-					return $delay;
-				}, throw: false)
+						
+						return $delay;
+					},
+					when: function(Throwable $exception, PendingRequest $request) {
+						// Only retry on non 400 (bad request) errors
+						return ! ($exception instanceof RequestException)
+							|| 400 !== $exception->response->status();
+					},
+					throw: false
+				)
 				->get($url);
 			
 			if ($response->failed() || $response->json('error')) {
-				$this->log(" - Failed due to a {$response->status()} error. Response: '{$response->body()}'");
+				$body = $response->body();
+				if (str_contains($body, 'end date > start date')) {
+					$this->log(' - Reached beginning of package date range');
+				} else {
+					$this->log(" - Failed due to a {$response->status()} error. Response: '{$body}'");
+				}
 				break;
 			}
 			
