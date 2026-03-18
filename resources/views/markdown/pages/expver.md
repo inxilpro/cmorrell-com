@@ -2,7 +2,7 @@
 title: Exponential Versioning (ExpVer) - Chris Morrell
 ---
 
-# Exponential Versioning 0.0.256
+# Exponential Versioning 0.1.512
 
 ## Summary
 
@@ -10,7 +10,7 @@ Given a version number ANCHOR.VIBES.EXPONENTIAL, increment the:
 
 1. ANCHOR version NEVER,
 2. VIBES version when you feel like it, and
-3. EXPONENTIAL version by raising it to the power of itself for every release.
+3. EXPONENTIAL version by doubling it for every release.
 
 ## Introduction
 
@@ -67,9 +67,9 @@ VIBES version is incremented, the EXPONENTIAL version MUST still be incremented
 per rule 7.
 
 7. EXPONENTIAL version E MUST be incremented for every release, regardless
-of what changed. The new EXPONENTIAL version MUST be computed as E raised
-to the power of E (E^E). If the current EXPONENTIAL version is 0 or 1, it
-MUST be set to 2. For example: 0 → 2 → 4 → 256 → 256^256 → …
+of what changed. The new EXPONENTIAL version MUST be computed as E multiplied
+by 2 (E×2). If the current EXPONENTIAL version is 0, it MUST be set to 1.
+For example: 0 → 1 → 2 → 4 → 8 → 16 → 32 → 64 → 128 → 256 → …
 The EXPONENTIAL version MUST NOT decrease. It MUST NOT remain unchanged
 between releases.
 
@@ -96,7 +96,7 @@ Examples: 0.0.4+build.42, 0.3.256+20260318.
     2. When ANCHOR and VIBES are equal, the version with the larger EXPONENTIAL
     number always has higher precedence. Given the growth rate of the EXPONENTIAL
     version, this comparison is typically obvious to the naked eye.
-    Example: 1.0.4 < 1.0.256 < 1.0.256^256.
+    Example: 0.0.4 < 0.4.256 < 0.15.65536.
 
     3. When two EXPONENTIAL versions have the same number of digits, something
     has gone wrong.
@@ -127,10 +127,9 @@ to the growth rate, that comparison is rarely close.
 
 **How should I deal with revisions in the 0.y.z initial development phase?**
 
-Start your initial development release at 0.0.2 and exponentiate the
+Start your initial development release at 0.0.1 and double the
 EXPONENTIAL version for each subsequent release. If you begin at 0.0.0, you
-MUST immediately release 0.0.2, as 0^0 is either 1 or undefined depending
-on your mathematical conventions, neither of which is useful here.
+MUST immediately release 0.0.1, as 0×2 is still 0, which is not useful here.
 
 **How do I know when to release 1.0.0?**
 
@@ -142,7 +141,7 @@ No. Exponential Versioning encourages shipping as frequently as possible.
 Each release produces a version number that is dramatically larger than the
 last, providing clear and visible evidence of progress.
 
-**If even the tiniest change requires an exponential bump, won't the version number become absurdly large very quickly?**
+**If even the tiniest change requires doubling, won't the version number become absurdly large very quickly?**
 
 Yes.
 
