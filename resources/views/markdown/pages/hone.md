@@ -60,7 +60,3 @@ Hone does not knowingly collect information from children under 13. The app does
 ### Changes to This Policy
 
 We may update this privacy policy from time to time. Any changes will be reflected in the app with an updated revision date.
-
-### Contact
-
-If you have questions about this privacy policy, contact us at hone@inxilpro.com.
