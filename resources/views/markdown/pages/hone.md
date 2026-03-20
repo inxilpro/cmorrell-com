@@ -19,6 +19,8 @@ Maybe even more, we'll see.
 
 Anyway, Hone is completely free on the app store. Try it out!
 
+[Hone on the App Store](https://apps.apple.com/us/app/hone-gto-trainer/id6760725677)
+
 ## Privacy Policy
 
 *Last updated: March 19, 2026*
