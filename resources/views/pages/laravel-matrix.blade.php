@@ -121,7 +121,9 @@
 				return [...php].sort();
 			},
 			get laravel() {
-				return this.targets.map(v => `${ v.major }.*`).sort((a, b) => b.localeCompare(a));
+				return [...new Set(this.targets
+					.sort((a, b) => a.major > b.major ? -1 : 1)
+					.map(v => `${ v.major }.*`))];
 			}
 		}));
 	});
