@@ -3,6 +3,7 @@
 <x-layout 
 	title="Countdown to One Billion - Chris Morrell" 
 	:og-title="number_format($downloads->total)"
+	:og-image="asset('images/og-one-billion.png')"
 >
 	<h1 class="text-5xl lg:text-6xl font-bold font-slant text-gray-800">
 		Countdown to One Billion.

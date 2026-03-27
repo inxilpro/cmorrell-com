@@ -2,6 +2,7 @@
 	'title' => 'Chris Morrell',
 	'ogTitle' => null,
 	'ogDescription' => '',
+	'ogImage' => null,
 ])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -16,14 +17,14 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="{{ $ogTitle ?? $title }}" />
 		<meta property="og:description" content="{{ $ogDescription }}" />
-		<meta property="og:image" content="{{ URL::og($ogTitle ?? $title, url()->current()) }}" />
+		<meta property="og:image" content="{{ $ogImage ?? URL::og($ogTitle ?? $title, url()->current()) }}" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta property="twitter:domain" content="cmorrell.com" />
 		<meta property="twitter:url" content="{{ url()->current() }}" />
 		<meta name="twitter:creator" content="@inxilpro" />
 		<meta name="twitter:title" content="{{ $ogTitle ?? $title }}" />
 		<meta name="twitter:description" content="{{ $ogDescription }}" />
-		<meta name="twitter:image" content="{{ URL::og($ogTitle ?? $title, url()->current()) }}" />
+		<meta name="twitter:image" content="{{ $ogImage ?? URL::og($ogTitle ?? $title, url()->current()) }}" />
 	@endif
 </head>
 @if(app()->isLocal() && 'render' === request('og'))
