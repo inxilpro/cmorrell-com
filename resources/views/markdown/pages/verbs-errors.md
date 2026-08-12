@@ -1,3 +1,9 @@
+---
+title: Handling errors in Verbs
+published_at: 2025-04-10
+summary: How to use the onError helper in Verbs for event validation
+---
+
 # Verbs errors
 
 Error handling in Verbs can be tricky, because it's hard to know where

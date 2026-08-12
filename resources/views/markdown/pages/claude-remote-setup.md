@@ -1,3 +1,9 @@
+---
+title: Setting up Remote Claude Code
+published_at: 2026-03-03
+summary: How to automatically provision Claude Code remote VMs for Laravel projects
+---
+
 # Claude Code remote setup for Laravel
 
 When you use Claude Code on the web, your code runs in a sandboxed VM that starts

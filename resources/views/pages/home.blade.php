@@ -126,23 +126,24 @@
 			
 			<p class="text-xl leading-normal my-4">
 				I update this site very infrequently, but I may post interesting things
-				here from time-to-time.
+				here from time-to-time. 
 			</p>
 			
 			<ul class="list-disc ml-6">
+				@foreach(\App\Support\Post::published() as $post)
+					@if($post->listing)
+						@include($post->listing, ['post' => $post])
+					@else
+						<li class="my-2">
+							<a href="{{ url("/{$post->slug}") }}" class="text-gray-600 font-bold underline hover:text-black">
+								{{ $post->title }}
+							</a>
+						</li>
+					@endif
+				@endforeach
 				<li class="my-2">
 					<a href="{{ url('/laravel-matrix') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Laravel Github Actions Matrix Generator
-					</a>
-				</li>
-				<li class="my-2">
-					<a href="{{ url('/claude-remote-setup') }}" class="text-gray-600 font-bold underline hover:text-black">
-						Setting up Remote Claude Code
-					</a>
-				</li>
-				<li class="my-2">
-					<a href="{{ url('/llm-recipes') }}" class="text-gray-600 font-bold underline hover:text-black">
-						LLM Recipes
 					</a>
 				</li>
 				<li class="my-2">
@@ -160,18 +161,13 @@
 					</a>
 				</li>
 				<li class="my-2">
-					<a href="{{ url('/llms-in-mid-2025') }}" class="text-gray-600 font-bold underline hover:text-black">
-						LLMs in mid-2025
+					<a href="{{ url('/laravel-typehint-directive') }}" class="text-gray-600 font-bold underline hover:text-black">
+						Laravel {{'@'}}typehint directive
 					</a>
 				</li>
 				<li class="my-2">
 					<a href="{{ url('/models-in-verbs') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Models in Verbs
-					</a>
-				</li>
-				<li class="my-2">
-					<a href="{{ url('/verbs-errors') }}" class="text-gray-600 font-bold underline hover:text-black">
-						Handling errors in Verbs
 					</a>
 				</li>
 				<li class="my-2">
@@ -188,9 +184,6 @@
 					<a href="{{ url('/one-billion') }}" class="text-gray-600 font-bold underline hover:text-black">
 						Countdown to One Billion
 					</a>
-					@if(Cache::has('downloads:total') && $download_total = Cache::get('downloads:total'))
-						(spoiler alert—I’m at {{ number_format($download_total) }})
-					@endif
 				</li>
 			</ul>
 		

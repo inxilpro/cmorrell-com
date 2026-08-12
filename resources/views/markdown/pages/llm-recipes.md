@@ -1,5 +1,7 @@
 ---
-date: 2025-08-20
+title: LLM Recipes
+published_at: 2025-08-20
+summary: Practical use-cases for LLMs that I've found helpful
 ---
 
 # LLM Recipes

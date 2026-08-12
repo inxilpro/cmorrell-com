@@ -34,7 +34,8 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 		$environment->addExtension(new TorchlightExtension());
 		$environment->addExtension(new FrontMatterExtension());
 		$environment->addExtension(new TitleExtractorExtension());
-		
+		// TODO: $environment->addExtension(new BladeRendererExtension());
+
 		parent::__construct($environment);
 	}
 	

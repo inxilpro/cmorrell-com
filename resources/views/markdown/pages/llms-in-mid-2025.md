@@ -1,3 +1,9 @@
+---
+title: LLMs in mid-2025
+published_at: 2025-06-15
+summary: Thoughts on the current state of LLMs
+---
+
 # LLMs in mid-2025
 
 Let me start by saying I have no idea what I'm talking about when it comes to LLMs. The whole landscape
