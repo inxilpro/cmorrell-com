@@ -16,6 +16,11 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use League\CommonMark\Extension\Table\Table;
+use League\CommonMark\Extension\Table\TableCell;
+use League\CommonMark\Extension\Table\TableExtension;
+use League\CommonMark\Extension\Table\TableRow;
+use League\CommonMark\Extension\Table\TableSection;
 use League\CommonMark\Node\Block\Paragraph;
 use Torchlight\Commonmark\V2\TorchlightExtension;
 
@@ -37,8 +42,8 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 		// TODO: $environment->addExtension(new BladeRendererExtension());
 		
 		// Custom renderers
-		$environment->addRenderer(BlockQuote::class , new CalloutRendererExtension());
-
+		$environment->addRenderer(BlockQuote::class, new CalloutRendererExtension());
+		
 		parent::__construct($environment);
 	}
 	
@@ -89,6 +94,12 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 				Image::class => [
 					'class' => 'rounded-lg my-8',
 				],
+				Table::class => [
+					'class' => 'table-markdown',
+				],
+				TableSection::class => [],
+				TableRow::class => [],
+				TableCell::class => [],
 			],
 		];
 	}
