@@ -35,6 +35,9 @@ class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 		$environment->addExtension(new FrontMatterExtension());
 		$environment->addExtension(new TitleExtractorExtension());
 		// TODO: $environment->addExtension(new BladeRendererExtension());
+		
+		// Custom renderers
+		$environment->addRenderer(BlockQuote::class , new CalloutRendererExtension());
 
 		parent::__construct($environment);
 	}
