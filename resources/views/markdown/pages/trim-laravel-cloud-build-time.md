@@ -6,6 +6,10 @@ summary: Some micro-optimizations to cut your Laravel Cloud builds by ~40%
 
 # Trim Laravel Cloud Build Time
 
+> [!note]
+> I have since abstracted this code into a shell function that you can use in your build
+> scripts. See [parallel-build](https://github.com/glhd/parallel-build) for details.
+
 I've been using [Laravel Cloud](https://laravel.com/cloud) a bunch lately. Build times take about 
 18 seconds on the app that I'm working on. My entire build script used to be:
 
