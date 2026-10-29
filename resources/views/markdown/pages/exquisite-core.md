@@ -21,6 +21,8 @@ I want to do that, but with software. Here's the premise:
 
 We repeat that loop for as many iterations as makes sense, and then demo the app at the end of the night.
 
+The vibe should be: exquisite corpse meets musical chairs meets whisper down the lane, but with nerds and the web.
+
 I'm gonna try to organize a small group sometime in November or December, and if it goes well potentially scale it up to a full PHP×Philly meetup event in early 2027. If you want to be part of that first round, let me know!
 
 Chris
