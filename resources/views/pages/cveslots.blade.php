@@ -162,7 +162,9 @@
 <script>
 setTimeout(() => {
 	const el = document.getElementById('loading');
-	if (el) el.innerHTML = 'COULDN\'T LOAD THREE.JS<br><br>Check your internet connection and reload.';
+	if (el) {
+		el.innerHTML = 'COULDN\'T LOAD THREE.JS<br><br>Check your internet connection and reload.';
+	}
 }, 12000);
 </script>
 <div id="history"></div>
@@ -263,12 +265,16 @@ scene.add(new THREE.AmbientLight(0xffffff, 0.15));
 const key = new THREE.DirectionalLight(0xfff1dd, 0.9);
 key.position.set(4, 7, 9);
 scene.add(key);
-const redFill = new THREE.PointLight(0xff2a3a, 40, 0, 2);
-redFill.position.set(-5, 0, 4);
-scene.add(redFill);
-const blueRim = new THREE.PointLight(0x3a7bff, 30, 0, 2);
-blueRim.position.set(5, 3, -3);
-scene.add(blueRim);
+// Colored accent lights: narrow spots aimed upward at the cabinet so they never hit the floor
+const RED_BASE = 55;
+const redFill = new THREE.SpotLight(0xff2a3a, RED_BASE, 0, 0.3, 0.6, 2);
+redFill.position.set(-5, 0.5, 4);
+redFill.target.position.set(0, 2.5, 0);
+scene.add(redFill, redFill.target);
+const blueRim = new THREE.SpotLight(0x3a7bff, 45, 0, 0.3, 0.6, 2);
+blueRim.position.set(5, 1, -3);
+blueRim.target.position.set(0, 2.5, 0);
+scene.add(blueRim, blueRim.target);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
@@ -348,7 +354,9 @@ scene.add(machine);
 	machine.add(back);
 	
 	// chrome frames around windows
-	for (const x of REEL_X) machine.add(frameMesh(x, WIN_Y, WIN_W, WIN_H, 0.07, 0.05, FRONT_Z, chrome));
+	for (const x of REEL_X) {
+		machine.add(frameMesh(x, WIN_Y, WIN_W, WIN_H, 0.07, 0.05, FRONT_Z, chrome));
+	}
 	
 	// payline arrows
 	const arrowMat = new THREE.MeshStandardMaterial({ color: 0xff2030, emissive: 0xff2030, emissiveIntensity: 2.5 });
@@ -385,8 +393,22 @@ scene.add(machine);
 	const plinth = new THREE.Mesh(new RoundedBoxGeometry(4.5, 0.22, 3.0, 3, 0.06), darkMetal);
 	plinth.position.set(0, -2.86, 0.05);
 	machine.add(plinth);
-	const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60),
-		new THREE.MeshStandardMaterial({ color: 0x0c0d10, roughness: 0.3, metalness: 0.4 }));
+	// matte floor that fades out into the background
+	const fadeCanvas = document.createElement('canvas');
+	fadeCanvas.width = fadeCanvas.height = 256;
+	const fc = fadeCanvas.getContext('2d');
+	const fg = fc.createRadialGradient(128, 128, 0, 128, 128, 128);
+	fg.addColorStop(0, '#fff');
+	fg.addColorStop(0.35, '#888');
+	fg.addColorStop(1, '#000');
+	fc.fillStyle = fg;
+	fc.fillRect(0, 0, 256, 256);
+	const floor = new THREE.Mesh(new THREE.PlaneGeometry(24, 24),
+		new THREE.MeshStandardMaterial({
+			color: 0x15171c, roughness: 0.7, metalness: 0.1,
+			alphaMap: new THREE.CanvasTexture(fadeCanvas), transparent: true, depthWrite: false
+		}));
+	floor.position.z = 0.5;
 	floor.rotation.x = -Math.PI / 2;
 	floor.position.y = -2.97;
 	scene.add(floor);
@@ -456,7 +478,9 @@ function bulbRect(x0, x1, y0, y1, z, spacing) {
 	const along = (ax, ay, bx, by) => {
 		const len = Math.hypot(bx - ax, by - ay);
 		const n = Math.round(len / spacing);
-		for (let i = 0; i < n; i++) pts.push([ax + (bx - ax) * i / n, ay + (by - ay) * i / n]);
+		for (let i = 0; i < n; i++) {
+			pts.push([ax + (bx - ax) * i / n, ay + (by - ay) * i / n]);
+		}
 	};
 	along(x0, y1, x1, y1);
 	along(x1, y1, x1, y0);
@@ -598,7 +622,9 @@ class Reel {
 	}
 	
 	setBlur(on) {
-		if (on === this.blurred) return;
+		if (on === this.blurred) {
+			return;
+		}
 		this.blurred = on;
 		for (const p of this.panels) {
 			const t = on ? p.tB : p.tS;
@@ -623,9 +649,11 @@ class Reel {
 			const t = (now - a.t0) / 1000;
 			const WIND = 0.22, BACK = 0.32, OVER = 0.12;
 			let ang;
-			if (t < 0) ang = a.start;
-			else if (t < WIND) ang = a.start - BACK * Math.sin((t / WIND) * Math.PI / 2);
-			else if (t < WIND + a.duration) {
+			if (t < 0) {
+				ang = a.start;
+			} else if (t < WIND) {
+				ang = a.start - BACK * Math.sin((t / WIND) * Math.PI / 2);
+			} else if (t < WIND + a.duration) {
 				const p = (t - WIND) / a.duration;
 				const from = a.start - BACK;
 				ang = from + (a.end + OVER - from) * (1 - Math.pow(1 - p, 3));
@@ -653,8 +681,9 @@ class Reel {
 			a.relabeled = true;
 			for (let i = 0; i < N; i++) {
 				let label;
-				if (i === a.k) label = a.target;
-				else {
+				if (i === a.k) {
+					label = a.target;
+				} else {
 					do {
 						label = pick(this.items);
 					} while (label === a.target);
@@ -743,7 +772,9 @@ const pCol = new Float32Array(MAXP * 3);
 const pVel = new Float32Array(MAXP * 3);
 const pLife = new Float32Array(MAXP);
 const pBase = new Float32Array(MAXP * 3);
-for (let i = 0; i < MAXP; i++) pPos[i * 3 + 1] = -100;
+for (let i = 0; i < MAXP; i++) {
+	pPos[i * 3 + 1] = -100;
+}
 const pGeo = new THREE.BufferGeometry();
 pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
 pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
@@ -785,7 +816,9 @@ function burst(n, origin) {
 
 function updateParticles(dt) {
 	for (let i = 0; i < MAXP; i++) {
-		if (pLife[i] <= 0) continue;
+		if (pLife[i] <= 0) {
+			continue;
+		}
 		pLife[i] -= dt;
 		pVel[i * 3 + 1] -= 9 * dt;
 		pPos[i * 3] += pVel[i * 3] * dt;
@@ -800,7 +833,9 @@ function updateParticles(dt) {
 		pCol[i * 3] = pBase[i * 3] * f;
 		pCol[i * 3 + 1] = pBase[i * 3 + 1] * f;
 		pCol[i * 3 + 2] = pBase[i * 3 + 2] * f;
-		if (pLife[i] <= 0) pPos[i * 3 + 1] = -100;
+		if (pLife[i] <= 0) {
+			pPos[i * 3 + 1] = -100;
+		}
 	}
 	pGeo.attributes.position.needsUpdate = true;
 	pGeo.attributes.color.needsUpdate = true;
@@ -814,13 +849,17 @@ let actx = null, master = null, muted = false;
 function initAudio() {
 	if (! actx) {
 		const AC = window.AudioContext || window.webkitAudioContext;
-		if (! AC) return;
+		if (! AC) {
+			return;
+		}
 		actx = new AC();
 		master = actx.createGain();
 		master.gain.value = 0.55;
 		master.connect(actx.destination);
 	}
-	if (actx.state === 'suspended') actx.resume();
+	if (actx.state === 'suspended') {
+		actx.resume();
+	}
 	if (! actx.unlocked) {
 		// iOS: play a silent buffer inside the gesture to unlock audio
 		const src = actx.createBufferSource();
@@ -832,12 +871,16 @@ function initAudio() {
 }
 
 function tone(freq, dur, type = 'square', vol = 0.1, when = 0, slideTo = null) {
-	if (muted || ! actx) return;
+	if (muted || ! actx) {
+		return;
+	}
 	const t = actx.currentTime + when;
 	const o = actx.createOscillator(), g = actx.createGain();
 	o.type = type;
 	o.frequency.setValueAtTime(freq, t);
-	if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+	if (slideTo) {
+		o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+	}
 	g.gain.setValueAtTime(vol, t);
 	g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 	o.connect(g).connect(master);
@@ -846,12 +889,16 @@ function tone(freq, dur, type = 'square', vol = 0.1, when = 0, slideTo = null) {
 }
 
 function noise(dur, vol, freq, when = 0) {
-	if (muted || ! actx) return;
+	if (muted || ! actx) {
+		return;
+	}
 	const t = actx.currentTime + when;
 	const len = Math.ceil(actx.sampleRate * dur);
 	const buf = actx.createBuffer(1, len, actx.sampleRate);
 	const d = buf.getChannelData(0);
-	for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+	for (let i = 0; i < len; i++) {
+		d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+	}
 	const src = actx.createBufferSource();
 	src.buffer = buf;
 	const f = actx.createBiquadFilter();
@@ -878,7 +925,11 @@ const sfx = {
 		noise(0.07, 0.35, 1600);
 	},
 	pager: () => {
-		for (let r = 0; r < 2; r++) for (let i = 0; i < 3; i++) tone(2900, 0.07, 'square', 0.07, r * 0.55 + i * 0.12);
+		for (let r = 0; r < 2; r++) {
+			for (let i = 0; i < 3; i++) {
+				tone(2900, 0.07, 'square', 0.07, r * 0.55 + i * 0.12);
+			}
+		}
 	},
 	jackpot: () => {
 		[523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'square', 0.06, 1.1 + i * 0.1));
@@ -904,7 +955,9 @@ function pickFresh(list, used) {
 	const pool = list.filter(x => ! used.includes(x));
 	const choice = pick(pool);
 	used.push(choice);
-	if (used.length > 2) used.shift();
+	if (used.length > 2) {
+		used.shift();
+	}
 	return choice;
 }
 
@@ -913,10 +966,14 @@ function fakeCVE() {
 }
 
 function startSpin(fromLever = false) {
-	if (state === 'spinning') return;
+	if (state === 'spinning') {
+		return;
+	}
 	initAudio();
 	state = 'spinning';
-	if (! fromLever) lever.auto = { t: 0 };
+	if (! fromLever) {
+		lever.auto = { t: 0 };
+	}
 	buttonPress = 1;
 	sfx.clunk();
 	
@@ -931,7 +988,9 @@ function startSpin(fromLever = false) {
 	};
 	pendingStops = 2;
 	const done = () => {
-		if (--pendingStops === 0) finishSpin();
+		if (--pendingStops === 0) {
+			finishSpin();
+		}
 	};
 	reels[0].spin(sw, 0.12, 1.7, 3, done);
 	reels[1].spin(ex, 0.2, 2.4 + rand(0, 0.7), 4, done);
@@ -946,7 +1005,9 @@ function finishSpin() {
 	burst(result.jackpot ? 600 : 260, new THREE.Vector3(0, -0.7, FRONT_Z + 0.2));
 	shake = result.jackpot ? 0.18 : 0.08;
 	sfx.pager();
-	if (result.jackpot) sfx.jackpot();
+	if (result.jackpot) {
+		sfx.jackpot();
+	}
 	history.unshift(`${ result.cve }  ${ result.name }  (${ result.score })`);
 	history.length = Math.min(history.length, 8);
 	document.getElementById('history').innerHTML =
@@ -969,7 +1030,9 @@ function fitFont(c, text, weight, maxSize, maxW, family) {
 }
 
 function drawScreen(now) {
-	if (now - lastScreenDraw < 40) return;
+	if (now - lastScreenDraw < 40) {
+		return;
+	}
 	lastScreenDraw = now;
 	const c = sctx;
 	const MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
@@ -999,7 +1062,9 @@ function drawScreen(now) {
 		c.fillStyle = 'rgba(61,214,140,.55)';
 		for (let row = 0; row < 4; row++) {
 			let s = '';
-			for (let i = 0; i < 40; i++) s += '0123456789abcdef'[randInt(16)];
+			for (let i = 0; i < 40; i++) {
+				s += '0123456789abcdef'[randInt(16)];
+			}
 			c.fillText(s.replace(/(.{4})/g, '$1 '), SCR_W / 2, 140 + row * 44);
 		}
 	} else if (state === 'result' && result) {
@@ -1028,7 +1093,9 @@ function drawScreen(now) {
 	}
 	// scanlines + vignette
 	c.fillStyle = 'rgba(0,0,0,.28)';
-	for (let y = 0; y < SCR_H; y += 4) c.fillRect(0, y, SCR_W, 2);
+	for (let y = 0; y < SCR_H; y += 4) {
+		c.fillRect(0, y, SCR_W, 2);
+	}
 	const v = c.createRadialGradient(SCR_W / 2, SCR_H / 2, SCR_H * 0.3, SCR_W / 2, SCR_H / 2, SCR_W * 0.6);
 	v.addColorStop(0, 'rgba(0,0,0,0)');
 	v.addColorStop(1, 'rgba(0,0,0,.6)');
@@ -1086,17 +1153,22 @@ renderer.domElement.addEventListener('pointermove', (e) => {
 		}
 		return;
 	}
-	if (e.pointerType !== 'mouse') return;
+	if (e.pointerType !== 'mouse') {
+		return;
+	}
 	const h = hitTest(e);
 	renderer.domElement.style.cursor = h === 'lever' ? 'grab' : h ? 'pointer' : 'default';
 });
 
 function endDrag() {
-	if (! lever.dragging) return;
+	if (! lever.dragging) {
+		return;
+	}
 	lever.dragging = false;
 	renderer.domElement.style.cursor = 'default';
-	if (lever.angle >= LEVER_FIRE) startSpin(true);
-	else if (lever.angle > 0.3 && state !== 'spinning') {
+	if (lever.angle >= LEVER_FIRE) {
+		startSpin(true);
+	} else if (lever.angle > 0.3 && state !== 'spinning') {
 		// a half-hearted pull: click the lever, get the full pull
 		lever.auto = { t: 0, from: lever.angle };
 		startSpin(true);
@@ -1107,9 +1179,13 @@ renderer.domElement.addEventListener('pointerup', endDrag);
 renderer.domElement.addEventListener('pointercancel', endDrag);
 // quick click on the lever (no drag) = full pull
 renderer.domElement.addEventListener('click', (e) => {
-	if (state === 'spinning' || lever.auto) return;
+	if (state === 'spinning' || lever.auto) {
+		return;
+	}
 	const h = hitTest(e);
-	if ((h === 'lever' && lever.angle < 0.3) || h === 'machine') startSpin(false);
+	if ((h === 'lever' && lever.angle < 0.3) || h === 'machine') {
+		startSpin(false);
+	}
 });
 addEventListener('keydown', (e) => {
 	if (e.code === 'Space' || e.code === 'Enter') {
@@ -1149,7 +1225,9 @@ function resize() {
 
 addEventListener('resize', resize);
 addEventListener('orientationchange', () => setTimeout(resize, 200));
-if (window.visualViewport) visualViewport.addEventListener('resize', resize);
+if (window.visualViewport) {
+	visualViewport.addEventListener('resize', resize);
+}
 resize();
 
 /* ------------------------------------------------------------------ */
@@ -1183,7 +1261,9 @@ function frame(now) {
 	buttonMat.emissiveIntensity = state === 'spinning' ? 0.5 : 1 + 0.8 * (0.5 + 0.5 * Math.sin(now / 300));
 	
 	// reels
-	for (const r of reels) r.update(now, dt);
+	for (const r of reels) {
+		r.update(now, dt);
+	}
 	
 	// bulbs
 	const flashing = now < winFlashUntil;
@@ -1191,9 +1271,13 @@ function frame(now) {
 	const phase = Math.floor(now / speed);
 	bulbs.forEach((m, i) => {
 		let on;
-		if (flashing) on = Math.floor(now / 110) % 2 === (i % 2);
-		else if (state === 'spinning') on = (i + phase) % 3 === 0;
-		else on = (i + phase) % 5 === 0 || (i + phase) % 5 === 1;
+		if (flashing) {
+			on = Math.floor(now / 110) % 2 === (i % 2);
+		} else if (state === 'spinning') {
+			on = (i + phase) % 3 === 0;
+		} else {
+			on = (i + phase) % 5 === 0 || (i + phase) % 5 === 1;
+		}
 		m.emissiveIntensity += ((on ? 4.2 : 0.18) - m.emissiveIntensity) * Math.min(1, dt * 25);
 	});
 	
@@ -1211,7 +1295,7 @@ function frame(now) {
 		lookTarget.z + baseDist
 	);
 	camera.lookAt(lookTarget);
-	redFill.intensity = 40 + (flashing ? 60 * (Math.floor(now / 110) % 2) : 0);
+	redFill.intensity = RED_BASE + (flashing ? 80 * (Math.floor(now / 110) % 2) : 0);
 	
 	composer.render();
 	requestAnimationFrame(frame);
