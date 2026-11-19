@@ -148,6 +148,7 @@
 		}
 	}
 	</style>
+	<script defer data-domain="cmorrell.com" src="https://plausible.io/js/script.js"></script>
 	<script type="importmap">
 	{
 	  "imports": {
