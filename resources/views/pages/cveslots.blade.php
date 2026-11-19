@@ -5,6 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<title>CVE Slots - Chris Morrell</title>
+	<meta property="og:url" content="{{ url()->current() }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="CVE Slots" />
+	<meta property="og:description" content="Security Research Made Easy!" />
+	<meta property="og:image" content="{{ asset('images/cve-slots-og.png') }}" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="twitter:domain" content="cmorrell.com" />
+	<meta property="twitter:url" content="{{ url()->current() }}" />
+	<meta name="twitter:creator" content="@inxilpro" />
+	<meta name="twitter:title" content="CVE Slots" />
+	<meta name="twitter:description" content="Security Research Made Easy!" />
+	<meta name="twitter:image" content="{{ asset('images/cve-slots-og.png') }}" />
 	<style>
 	html, body {
 		margin: 0;
